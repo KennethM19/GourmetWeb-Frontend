@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly URL = environment.apiUrl
+  private readonly URL = environment.api
   constructor(private http: HttpClient) { }
   register(userData: any): Observable<any> {
     return this.http.post<any>(`${this.URL}/clientes/`, userData);
