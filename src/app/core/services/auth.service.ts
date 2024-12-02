@@ -38,7 +38,7 @@ export class AuthService {
 
     const payload = JSON.parse(atob(token.split('.')[1]))
     const expired = payload.exp * 1000
-
+    
     return Date.now() < expired;
   }
 
@@ -46,4 +46,6 @@ export class AuthService {
     localStorage.removeItem(this.tokenKey);
     this.router.navigate(['/login']);
   }
+
+  
 }
