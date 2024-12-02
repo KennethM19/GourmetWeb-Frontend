@@ -30,7 +30,7 @@ export default class RegisterComponent {
     this.http.post(apiUrl, this.user).subscribe({
       next: () => {
         console.log('Registro exitoso');
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/login']);
       },
       error: (error) => {
         console.error('Error durante el registro', error);
