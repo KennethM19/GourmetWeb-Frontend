@@ -14,24 +14,26 @@
                 <input formControlName="username" type="text" id="username" name="username"
                     class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
                     autocomplete="off">
-                    <div *ngIf="formLogin.get('username')?.touched && formLogin.get('username')?.invalid" class="text-red-500">
-                        <small>Username is required.</small>
-                    </div>
+                <div *ngIf="formLogin.get('username')?.touched && formLogin.get('username')?.invalid"
+                    class="text-red-500">
+                    <small>Username is required.</small>
+                </div>
             </div>
-            
+
             <!-- Password Input -->
             <div class="mb-4">
                 <label for="password" class="block text-gray-800">Password</label>
                 <input formControlName="password" type="password" id="password" name="password"
                     class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
                     autocomplete="off">
-                    <div *ngIf="formLogin.get('password')?.touched && formLogin.get('password')?.invalid" class="text-red-500">
-                        <small>Password must be between 8 and 20 characters.</small>
-                    </div>
+                <div *ngIf="formLogin.get('password')?.touched && formLogin.get('password')?.invalid"
+                    class="text-red-500">
+                    <small>Password must be between 8 and 20 characters.</small>
+                </div>
             </div>
             <!-- Forgot Password Link -->
             <div class="mb-6 text-blue-500">
-                <a href="#" class="hover:underline">Forgot Password?</a>
+                <a class="hover:underline">Forgot Password?</a>
             </div>
             <div *ngIf="loginError" class="mb-4 text-red-500">
                 Invalid username or password.
@@ -42,7 +44,7 @@
         </form>
         <!-- Sign up Link -->
         <div class="mt-6 text-green-500 text-center">
-            <a href="#" class="hover:underline">Sign up Here</a>
+            <a href="register" class="hover:underline">Sign up Here</a>
         </div>
     </div>
 </div>
