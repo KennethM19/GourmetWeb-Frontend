@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +7,10 @@ import { Component } from '@angular/core';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
+export default class DashboardComponent {
+  menuHidden: boolean = true;
 
+  toggleMenu(): void {
+    this.menuHidden = !this.menuHidden;
+  }
 }

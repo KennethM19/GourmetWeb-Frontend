@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReservarMesaComponent } from './reservar-mesa.component';
+import ReservarMesaComponent from './reservar-mesa.component';
 
 describe('ReservarMesaComponent', () => {
   let component: ReservarMesaComponent;
