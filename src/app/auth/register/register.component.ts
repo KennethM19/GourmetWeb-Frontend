@@ -22,7 +22,6 @@ export default class RegisterComponent implements OnInit {
     this.formRegister = new FormGroup({
       dni: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^\d{8}$/),
       ]),
       nombres: new FormControl('', [
         Validators.required,

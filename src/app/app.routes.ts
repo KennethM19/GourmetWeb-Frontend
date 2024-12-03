@@ -26,12 +26,12 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import("./gourmetClient/auth/login/login.component"),
+    loadComponent: () => import("./auth/login/login.component"),
     canActivate: [authenticatedGuard]
   },
   {
     path: 'register',
-    loadComponent: () => import("./gourmetClient/auth/register/register.component")
+    loadComponent: () => import("./auth/register/register.component")
   },
   {
     path: '**',

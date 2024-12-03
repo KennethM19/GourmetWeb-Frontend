@@ -6,12 +6,12 @@
   </div>
   <!-- Right: Login Form -->
   <div class="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
-    <h1 class="text-2xl font-semibold mb-4">Login</h1>
+    <h1 class="text-2xl font-semibold mb-4">Bienvenido</h1>
     <form (ngSubmit)="login()" [formGroup]="formLogin" novalidate>
       <!-- Username Input -->
       <div class="mb-4 bg-sky-100">
-        <label for="username" class="block text-gray-600">Username</label>
-        <input formControlName="username" type="text" id="username" name="username"
+        <label for="username" class="block text-gray-600">Usuario</label>
+        <input formControlName="username" type="text" id="username" name="username" placeholder="correo electrónico"
                class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
                autocomplete="off">
         <div *ngIf="formLogin.get('username')?.touched && formLogin.get('username')?.invalid"
@@ -22,30 +22,30 @@
 
       <!-- Password Input -->
       <div class="mb-4">
-        <label for="password" class="block text-gray-800">Password</label>
-        <input formControlName="password" type="password" id="password" name="password"
+        <label for="password" class="block text-gray-800">Contraseña</label>
+        <input formControlName="password" type="password" id="password" name="password" placeholder="contraseña"
                class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
                autocomplete="off">
         <div *ngIf="formLogin.get('password')?.touched && formLogin.get('password')?.invalid"
              class="text-red-500">
-          <small>Password must be between 8 and 20 characters.</small>
+          <small>La contraseña debe ser de 8 a 20 carácteres</small>
         </div>
       </div>
       <!-- Forgot Password Link -->
       <div class="mb-6 text-blue-500">
-        <a class="hover:underline">Forgot Password?</a>
+        <a class="hover:underline">¿Se olvidó su contraseña?</a>
       </div>
       <div *ngIf="loginError" class="mb-4 text-red-500">
-        Invalid username or password.
+        Usuario o contraseña incorrectos.
       </div>
       <!-- Login Button -->
       <button type="submit" [disabled]="formLogin.invalid"
-              class="bg-red-500 text-white font-semibold rounded-md py-2 px-4 w-full">Login
+              class="bg-red-500 text-white font-semibold rounded-md py-2 px-4 w-full">Ingresar
       </button>
     </form>
     <!-- Sign up Link -->
     <div class="mt-6 text-green-500 text-center">
-      <a href="register" class="hover:underline">Sign up Here</a>
+      <a href="register" class="hover:underline">Registrarse</a>
     </div>
   </div>
 </div>
