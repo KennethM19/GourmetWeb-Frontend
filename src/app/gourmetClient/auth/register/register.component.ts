@@ -14,15 +14,6 @@ import {Router} from '@angular/router';
 export default class RegisterComponent implements OnInit {
   formRegister: FormGroup = new FormGroup({});
   registerError: boolean = false;
-  user = {
-    nombres: '',
-    apellidos: '',
-    email: '',
-    telefono: '',
-    username: '',
-    password: '',
-    dni: '',
-  };
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -59,15 +50,32 @@ export default class RegisterComponent implements OnInit {
 
   register(): void {
     const apiUrl = 'https://server.rest.devmb.top/admin-res/api/v1/usuarios/';
+    const {dni, nombres, apellidos, telefono, email, password, confirmPassword} = this.formRegister.value;
 
-    this.http.post(apiUrl, this.user).subscribe({
+    if (password !== confirmPassword) {
+      this.registerError = true;
+      console.error('Las contraseñas no coinciden');
+      return;
+    }
+
+    const user = {
+      dni: dni,
+      nombres: nombres,
+      apellidos: apellidos,
+      telefono: telefono,
+      email: email,
+      password: password,
+    }
+
+    this.http.post(apiUrl, user).subscribe({
       next: () => {
-        console.log('Registro exitoso');
+        console.log('Successfully registered');
         this.router.navigate(['/login']);
       },
       error: (error) => {
-        console.error('Error durante el registro', error);
-      },
-    });
+        this.registerError = true;
+        console.error('Error en la login', error);
+      }
+    })
   }
 }

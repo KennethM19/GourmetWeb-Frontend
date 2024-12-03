@@ -9,29 +9,29 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadComponent: () => import("./gourmet/dashboard/dashboard.component"),
+        loadComponent: () => import("./gourmetClient/dashboard/dashboard.component"),
         canActivate: [authGuard]
       },
       {
         path: 'pedidos',
-        loadComponent: () => import("./gourmet/pedidos/pedidos.component"),
+        loadComponent: () => import("./gourmetClient/pedidos/pedidos.component"),
         canActivate: [authGuard]
       },
       {
-        path: 'mesa',
-        loadComponent: () => import("./gourmet/mesa/mesa.component"),
+        path: 'reservar-mesa',
+        loadComponent: () => import("./gourmetClient/reservar-mesa/reservar-mesa.component"),
         canActivate: [authGuard]
       }
     ]
   },
   {
     path: 'login',
-    loadComponent: () => import("./gourmet/auth/login/login.component"),
+    loadComponent: () => import("./gourmetClient/auth/login/login.component"),
     canActivate: [authenticatedGuard]
   },
   {
     path: 'register',
-    loadComponent: () => import("./gourmet/auth/register/register.component")
+    loadComponent: () => import("./gourmetClient/auth/register/register.component")
   },
   {
     path: '**',
