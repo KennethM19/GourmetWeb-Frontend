@@ -4,5 +4,5 @@ input, button {
 }
 
 button:disabled {
-  opacity: .6;
+  opacity: .5;
 }
