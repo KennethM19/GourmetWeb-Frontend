@@ -34,6 +34,14 @@ export const routes: Routes = [
     loadComponent: () => import("./gourmetClient/auth/register/register.component")
   },
   {
+    path: 'login-admin',
+    loadComponent: () => import("./gourmetAdmin/login/login.component")
+  },
+  {
+    path: 'dashboard-admin',
+    loadComponent: () => import("./gourmetAdmin/dashboard/dashboard.component")
+  },
+  {
     path: '**',
     redirectTo: 'dashboard',
   }

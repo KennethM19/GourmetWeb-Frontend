@@ -1,1 +1,77 @@
-<p>dashboard works!</p>
+<div class="flex flex-col h-screen bg-gray-100">
+  <!-- Barra de navegación superior -->
+  <div class="navbar">
+    <div class="logo-container">
+      <img src="https://www.emprenderconactitud.com/img/POC%20WCS%20(1).png" alt="Logo" class="logo">
+      <h2 class="app-title">Nombre de la Aplicación</h2>
+    </div>
+    <div class="menu-btn md-hidden">
+      <button (click)="toggleMenu()">
+        <i class="fas fa-bars text-gray-500 text-lg"></i>
+      </button>
+    </div>
+    <div class="icon-container">
+      <button>
+        <i class="fas fa-bell text-gray-500 text-lg"></i>
+      </button>
+      <button>
+        <i class="fas fa-user text-gray-500 text-lg"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main-content">
+    <!-- Barra lateral -->
+    <div class="side-nav" [class.hidden]="menuHidden">
+      <nav>
+        <a class="nav-link" href="#">
+          <i class="fas fa-home mr-2"></i>Inicio
+        </a>
+        <a class="nav-link" href="#">
+          <i class="fas fa-file-alt mr-2"></i>Autorizaciones
+        </a>
+        <a class="nav-link" href="#">
+          <i class="fas fa-users mr-2"></i>Usuarios
+        </a>
+        <a class="nav-link" href="#">
+          <i class="fas fa-store mr-2"></i>Comercios
+        </a>
+        <a class="nav-link" href="#">
+          <i class="fas fa-exchange-alt mr-2"></i>Transacciones
+        </a>
+      </nav>
+      <div class="foot-side">
+        <a class="logout-link" href="#">
+          <i class="fas fa-sign-out-alt mr-2"></i>Cerrar sesión
+        </a>
+        <div class="divider"></div>
+        <p class="copyright">Copyright WCSLAT2023</p>
+      </div>
+    </div>
+
+    <!-- Área de contenido -->
+    <div class="content-area">
+      <div class="search-box">
+        <div class="search-icon">
+          <i class="fas fa-search text-gray-400"></i>
+        </div>
+        <input class="search-input" type="search" placeholder="Buscar...">
+      </div>
+      <div class="charts">
+        <div class="chart">
+          <h2>Usuarios</h2>
+          <div class="chart-canvas">
+            <canvas id="usersChart"></canvas>
+          </div>
+        </div>
+        <div class="chart">
+          <h2>Comercios</h2>
+          <div class="chart-canvas">
+            <canvas id="commercesChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
