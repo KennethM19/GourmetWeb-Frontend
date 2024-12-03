@@ -1,14 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../../../core/services/auth.service';
+import {Router} from '@angular/router';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +15,9 @@ export default class LoginComponent implements OnInit {
   formLogin: FormGroup = new FormGroup({});
   loginError: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+  }
+
   ngOnInit(): void {
     this.formLogin = new FormGroup({
       username: new FormControl('', [Validators.required]),
@@ -34,7 +30,7 @@ export default class LoginComponent implements OnInit {
   }
 
   login(): void {
-    const { username, password } = this.formLogin.value;
+    const {username, password} = this.formLogin.value;
     this.authService.login(username, password).subscribe({
       next: () => {
         this.router.navigate(['/dashboard']);

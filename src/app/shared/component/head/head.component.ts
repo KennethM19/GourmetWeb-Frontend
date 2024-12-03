@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {AuthService} from '../../../core/services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-head',
@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
   styleUrl: './head.component.css'
 })
 export class HeadComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
   logout() {
     this.authService.logout();

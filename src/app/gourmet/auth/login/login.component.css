@@ -1,7 +1,8 @@
 input, button {
-    cursor: pointer;
-    font-family: var(--font-family-1);
+  cursor: pointer;
+  font-family: var(--font-family-1);
 }
+
 button:disabled {
-    opacity: .5;
+  opacity: .5;
 }

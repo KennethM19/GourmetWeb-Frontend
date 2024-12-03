@@ -1,14 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +24,8 @@ export default class RegisterComponent implements OnInit {
     dni: '',
   };
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.formRegister = new FormGroup({
@@ -61,6 +56,7 @@ export default class RegisterComponent implements OnInit {
       ])
     });
   }
+
   register(): void {
     const apiUrl = 'https://server.rest.devmb.top/admin-res/api/v1/usuarios/';
 
