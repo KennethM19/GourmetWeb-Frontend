@@ -8,7 +8,7 @@
                 <!-- Número de Personas -->
                 <div>
                     <label for="numeroPersonas" class="block text-sm font-medium text-gray-700">Número de Personas</label>
-                    <input type="number" id="numeroPersonas" name="numeroPersonas"
+                    <input formControlName="numeroPersonas" type="number" id="numeroPersonas" name="numeroPersonas"
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Ej. 4" min="1" required>
                 </div>
@@ -16,7 +16,7 @@
                 <!-- Fecha -->
                 <div>
                     <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
-                    <input type="date" id="fecha" name="fecha"
+                    <input formControlName="fecha" type="date" id="fecha" name="fecha"
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
                         required>
                 </div>
@@ -24,7 +24,7 @@
                 <!-- Hora -->
                 <div>
                     <label for="hora" class="block text-sm font-medium text-gray-700">Hora</label>
-                    <input type="time" id="hora" name="hora"
+                    <input formControlName="hora" type="time" id="hora" name="hora"
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
                         min="08:00" max="23:59" required>
                 </div>
@@ -32,7 +32,7 @@
                 <!-- Teléfono de Contacto -->
                 <div>
                     <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono de Contacto</label>
-                    <input type="tel" id="telefono" name="telefono"
+                    <input formControlName="telefono" type="tel" id="telefono" name="telefono"
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Ej. 987654321" pattern="^9\d{8}$" required>
                 </div>
