@@ -21,8 +21,8 @@
     <nav class="menu">
       <ul>
         <li *ngFor="let item of menuItems">
-          <a [routerLink]="item.route" routerLinkActive="active">
-            <span class="material-icons icon">{{ item.icon }}</span>
+          <a [routerLink]="item.route" routerLinkActive="active" (click)="item.label ==='Cerrar sesión' ? logout() : null">
+            <fa-icon [icon]="item.icon"></fa-icon>
             <span class="menu-label">{{ item.label }}</span>
           </a>
         </li>

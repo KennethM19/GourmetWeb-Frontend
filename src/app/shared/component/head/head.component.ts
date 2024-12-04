@@ -10,10 +10,5 @@ import {Router} from '@angular/router';
   styleUrl: './head.component.css'
 })
 export class HeadComponent {
-  constructor(private authService: AuthService, private router: Router) {
-  }
-
-  logout() {
-    this.authService.logout();
-  }
+  constructor() {}
 }

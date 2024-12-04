@@ -21,9 +21,9 @@ interface Producto {
 export default class PedidosComponent {
   private sidebarService = inject(SidebarService);
   isCollapsed$ = this.sidebarService.isCollapsed$;
-  
+
   categorias = ['Entradas', 'Platos Principales', 'Postres', 'Bebidas'];
-  
+
   productos: Producto[] = [
     {
       id: 1,
