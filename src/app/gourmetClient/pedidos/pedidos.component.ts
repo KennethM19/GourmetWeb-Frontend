@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SidebarService } from '../../shared/services/sidebar.service';
+import {Component, inject} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {SidebarService} from '../../shared/services/sidebar.service';
 
 interface Producto {
   id: number;
@@ -21,9 +21,9 @@ interface Producto {
 export default class PedidosComponent {
   private sidebarService = inject(SidebarService);
   isCollapsed$ = this.sidebarService.isCollapsed$;
-  
+
   categorias = ['Entradas', 'Platos Principales', 'Postres', 'Bebidas'];
-  
+
   productos: Producto[] = [
     {
       id: 1,
@@ -68,11 +68,11 @@ export default class PedidosComponent {
   ];
 
   carrito: any[] = [
-    { producto: 'Ensalada Gourmet', cantidad: 2, precio: 24.00 },
-    { producto: 'Bistec a la Parrilla', cantidad: 1, precio: 18.00 },
-    { producto: 'Volcán de Chocolate', cantidad: 1, precio: 8.00 },
-    { producto: 'Pai de limón', cantidad: 1, precio: 12.00 },
-    { producto: 'Tiramisu de avellanas', cantidad: 1, precio: 12.00 }
+    {producto: 'Ensalada Gourmet', cantidad: 2, precio: 24.00},
+    {producto: 'Bistec a la Parrilla', cantidad: 1, precio: 18.00},
+    {producto: 'Volcán de Chocolate', cantidad: 1, precio: 8.00},
+    {producto: 'Pai de limón', cantidad: 1, precio: 12.00},
+    {producto: 'Tiramisu de avellanas', cantidad: 1, precio: 12.00}
   ];
 
   calcularTotal(): number {
