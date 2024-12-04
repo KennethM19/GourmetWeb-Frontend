@@ -1,1 +1,69 @@
-<p>pedidos works!</p>
+<div class="orders-container" [class.collapsed]="isCollapsed$ | async">
+    <header class="header">
+      <button class="btn-volver">Volver</button>
+      <div class="cart-icon">🛒</div>
+    </header>
+  
+    <main class="main-content">
+      <div class="menu-section">
+        <nav class="categories">
+          @for (categoria of categorias; track categoria) {
+            <button class="category-btn" [class.active]="categoria === 'Platos Principales'">
+              {{ categoria }}
+            </button>
+          }
+        </nav>
+  
+        <div class="products-grid">
+          @for (producto of productos; track producto.id) {
+            <div class="product-card">
+              <img [src]="producto.imagen" [alt]="producto.nombre">
+              <div class="product-info">
+                <h3>{{ producto.nombre }}</h3>
+                <p>{{ producto.descripcion }}</p>
+                <p class="price">S/{{ producto.precio.toFixed(2) }}</p>
+                <div class="quantity-controls">
+                  <button class="qty-btn">-</button>
+                  <span>1</span>
+                  <button class="qty-btn">+</button>
+                  <button class="add-btn">Agregar al pedido</button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+  
+      <aside class="order-summary">
+        <h2>Resumen del Pedido</h2>
+        <div class="order-items">
+          @for (item of carrito; track item.producto) {
+            <div class="order-item">
+              <div class="item-details">
+                <span>{{ item.producto }}</span>
+                <span> x {{ item.cantidad }}</span>
+                <span> &nbsp; -- &nbsp; S/{{ (item.precio * item.cantidad).toFixed(2) }}</span>
+              </div>
+            </div>
+          }
+        </div>
+  
+        <div class="notes">
+          <h3>Notas Especiales</h3>
+          <textarea placeholder="Añadir especificaciones..."></textarea>
+        </div>
+  
+        <div class="promo-box">
+          <h3>Promoción Especial</h3>
+          <p>¡20% de descuento en tu primer pedido!</p>
+        </div>
+  
+        <div class="total">
+          <span>Total</span>
+          <span>S/{{ calcularTotal().toFixed(2) }}</span>
+        </div>
+  
+        <button class="confirm-btn">Confirmar Pedido</button>
+      </aside>
+    </main>
+  </div>
