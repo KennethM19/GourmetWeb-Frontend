@@ -101,7 +101,7 @@ body {
   border-radius: 8px;
   background: linear-gradient(145deg, #ffffff, #e6e6e6);
   box-shadow: 5px 5px 10px #d1d1d1,
-             -5px -5px 10px #ffffff;
+  -5px -5px 10px #ffffff;
   transition: all 0.3s ease;
   font-weight: 600;
   color: #333;
@@ -113,14 +113,14 @@ body {
 .dashboard-button:hover {
   transform: translateY(-2px);
   box-shadow: 7px 7px 15px #d1d1d1,
-             -7px -7px 15px #ffffff;
+  -7px -7px 15px #ffffff;
 }
 
 /* Efecto active (cuando se presiona) */
 .dashboard-button:active {
   transform: translateY(1px);
   box-shadow: inset 4px 4px 8px #d1d1d1,
-             inset -4px -4px 8px #575757;
+  inset -4px -4px 8px #575757;
 }
 
 /* Variante para botones primarios */

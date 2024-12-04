@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import ReservarMesaComponent from './reservar-mesa.component';
 
@@ -10,7 +10,7 @@ describe('ReservarMesaComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ReservarMesaComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ReservarMesaComponent);
     component = fixture.componentInstance;

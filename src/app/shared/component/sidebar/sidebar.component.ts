@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {SidebarService} from '../../services/sidebar.service';
@@ -13,11 +13,14 @@ import {AuthService} from '../../../core/services/auth.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   private sidebarService = inject(SidebarService);
   isCollapsed$ = this.sidebarService.isCollapsed$;
 
-  constructor(private authService: AuthService) {}
+  faUser = faUser;
+
+  constructor(private authService: AuthService) {
+  }
 
   userName: string = 'lucia Ramirez';
   avatarUrl: string = 'https://api.dicebear.com/7.x/avataaars/svg';
@@ -27,6 +30,13 @@ export class SidebarComponent {
     {icon: faCalendar, label: 'Reservaciones', route: '/reservar-mesa'},
     {icon: faSignOutAlt, label: 'Cerrar sesión', route: '/logout'}
   ];
+  isLoggedIn: boolean = false;
+
+  ngOnInit(): void {
+    this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {
+      this.isLoggedIn = loggedIn;
+    })
+  }
 
   toggleSidebar(): void {
     this.sidebarService.toggleSidebar();

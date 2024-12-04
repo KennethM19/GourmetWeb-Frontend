@@ -10,22 +10,18 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () => import("./gourmetClient/dashboard/dashboard.component"),
-        canActivate: [authGuard]
       },
       {
         path: 'pedidos',
         loadComponent: () => import("./gourmetClient/pedidos/pedidos.component"),
-        canActivate: [authGuard]
       },
       {
         path: 'reservar-mesa',
         loadComponent: () => import("./gourmetClient/reservar-mesa/reservar-mesa.component"),
-        canActivate: [authGuard]
       },
       {
         path: 'detalle-pedido',
         loadComponent: () => import("./gourmetClient/detalle-pedido/detalle-pedido.component"),
-        canActivate: [authGuard]
       },
       {
         path:'',
@@ -37,7 +33,6 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import("./gourmetClient/auth/login/login.component"),
-    canActivate: [authenticatedGuard]
   },
   {
     path: 'register',
