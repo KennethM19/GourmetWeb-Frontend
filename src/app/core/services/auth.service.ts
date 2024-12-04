@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {Observable, tap} from 'rxjs';
+import {BehaviorSubject, Observable, tap} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ export class AuthService {
   private apiUrl = 'https://server.rest.devmb.top/admin-res/api/v1/login/token/';
   private tokenKey = 'accessToken';
   private refreshToken = 'refreshToken';
+  private loggedIn = new BehaviorSubject<boolean>(this.isAuthenticated());
 
   constructor(private httpClient: HttpClient, private router: Router) {
   }
@@ -20,6 +21,7 @@ export class AuthService {
         if (response.access && response.refresh) {
           console.log(response.access, response.refresh)
           this.setTokens(response.access, response.refresh);
+          this.loggedIn.next(true);
         }
       })
     )
@@ -53,16 +55,26 @@ export class AuthService {
       return false;
     }
 
-    const payload = JSON.parse(atob(token.split('.')[1]))
-    const expired = payload.exp * 1000
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]))
+      const expired = payload.exp * 1000
+      return Date.now() < expired;
+    } catch (e) {
+      console.error('Error al iniciar sesión', e);
+      return false;
+    }
+  }
 
-    return Date.now() < expired;
+  isLoggedIn(): Observable<boolean> {
+    return this.loggedIn.asObservable();
   }
 
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.refreshToken);
-    this.router.navigate(['/login']);
+    this.loggedIn.next(false);
+    console.log("Sesión cerrada")
+    this.router.navigate(['/dashboard']);
   }
 
   refreshAccessToken(): Observable<any> {

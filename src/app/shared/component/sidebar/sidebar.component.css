@@ -1,0 +1,174 @@
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+}
+
+.sidebar {
+  width: 260px;
+  height: 100%;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar.collapsed {
+  width: 90px;
+}
+
+/* Header */
+.sidebar-header {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.brand-title {
+  font-size: 1.5rem;
+  color: #000;
+  margin: 0;
+  opacity: 1;
+  white-space: nowrap;
+  transition: opacity 0.3s ease, width 0.3s ease;
+}
+
+.collapsed .brand-title {
+  opacity: 0;
+  width: 0;
+}
+
+/* Toggle button */
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #ff0000;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* User Profile */
+.user-profile {
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.avatar-container {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #1a73e8;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.collapsed .avatar-container {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0;
+}
+
+.username-container {
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.collapsed .username-container {
+  opacity: 0;
+  width: 0;
+}
+
+/* Menu */
+.menu {
+  flex: 1;
+  padding: 1rem 0;
+  overflow-y: auto;
+}
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li a {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: #666;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.menu li a:hover {
+  background: #f0f7ff;
+  color: #1a73e8;
+}
+
+.menu li a.active {
+  background: #e8f0fe;
+  color: #1a73e8;
+  border-left: 3px solid #1a73e8;
+}
+
+/* Icons */
+.icon {
+  min-width: 24px;
+  margin-right: 1rem;
+  transition: margin 0.3s ease;
+}
+
+.collapsed .icon {
+  margin-right: 0;
+}
+
+.menu-label {
+  opacity: 1;
+  transition: opacity 0.3s ease, width 0.3s ease;
+}
+
+.collapsed .menu-label {
+  opacity: 0;
+  width: 0;
+}
+
+.collapsed .menu li a {
+  justify-content: center;
+  padding: 0.75rem;
+}
+
+/* Main Content Adjustment */
+:host + * {
+  margin-left: 260px;
+  transition: margin-left 0.3s ease;
+}
+
+:host.collapsed + * {
+  margin-left: 90px;
+}
+
+fa-icon {
+  margin: 0;
+  padding: 0 0.5rem;
+}

@@ -1,1 +1,24 @@
-<p>dashboard works!</p>
+<div class="menu-container" [class.collapsed]="isCollapsed$ | async">
+  <header class="header">
+  </header>
+
+  <main class="main-content">
+    <h1>Bienvenido a GourmetFood</h1>
+    <p class="subtitle">Disfruta de nuestros platillos desde la comodidad de tu hogar</p>
+
+    <div class="buttons">
+      <button class="dashboard-button primary">🍽️ Explorar Menú</button>
+      <button class="dashboard-button secondary">🛒 Pedidos</button>
+      <button class="dashboard-button">✨ Reservar Mesa</button>
+    </div>
+
+    <div class="dishes-grid">
+      @for (platillo of platillos; track platillo; let i = $index) {
+        <div class="dish-card">
+          <img [src]="platillo.imagen">
+          <p>{{ platillo.descripcion }}</p>
+        </div>
+      }
+    </div>
+  </main>
+</div>

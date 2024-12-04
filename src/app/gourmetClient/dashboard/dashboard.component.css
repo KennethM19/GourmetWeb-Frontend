@@ -1,3 +1,136 @@
-button:disabled {
-  opacity: .5;
+.menu-container {
+  max-width: 1200px;
+  margin-left: 500px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.menu-container.collapsed {
+  margin-left: 290px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.main-content {
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.dishes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.dish-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dish-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.dish-card img:hover {
+  transform: scale(1.05);
+}
+
+.dish-card p {
+  padding: 15px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .buttons {
+    flex-direction: column;
+  }
+}
+
+.mat-drawer-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilo base para los botones del dashboard */
+.dashboard-button {
+  padding: 15px 35px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow: 5px 5px 10px #d1d1d1,
+  -5px -5px 10px #ffffff;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  color: #333;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto hover */
+.dashboard-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 7px 7px 15px #d1d1d1,
+  -7px -7px 15px #ffffff;
+}
+
+/* Efecto active (cuando se presiona) */
+.dashboard-button:active {
+  transform: translateY(1px);
+  box-shadow: inset 4px 4px 8px #d1d1d1,
+  inset -4px -4px 8px #575757;
+}
+
+/* Variante para botones primarios */
+.dashboard-button.primary {
+  background: #9e0606;
+  color: white;
+}
+
+/* Variante para botones secundarios */
+.dashboard-button.secondary {
+  background: linear-gradient(145deg, #2196F3, #1e88e5);
+  color: white;
 }

@@ -1,1 +1,39 @@
-<p>sidebar works!</p>
+<div class="sidebar-container">
+  <aside class="sidebar" [class.collapsed]="isCollapsed$ | async">
+    <div class="sidebar-header">
+      <div class="header-content">
+        <h1 class="brand-title"> 🍴 GourmetFood</h1>
+        <button class="toggle-btn" (click)="toggleSidebar()">
+          <span class="material-icons">{{ (isCollapsed$ | async) ? 'menu' : 'Cerrar' }}</span>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="isLoggedIn" class="user-profile">
+      <div class="avatar-container">
+        <img [src]="avatarUrl" alt="User avatar" class="avatar">
+      </div>
+      <div class="username-container">
+        <span class="username">{{ userName }}</span>
+      </div>
+    </div>
+
+    <nav class="menu">
+      <ul>
+        <li *ngIf="!isLoggedIn">
+          <a [routerLink]="'/login'" routerLinkActive="active">
+            <fa-icon [icon]="faUser"></fa-icon>
+            <span class="menu-label">Iniciar sesión</span>
+          </a>
+        </li>
+        <li *ngFor="let item of menuItems" [hidden]="!isLoggedIn">
+          <a [routerLink]="item.route" routerLinkActive="active"
+             (click)="item.label ==='Cerrar sesión' ? logout() : null">
+            <fa-icon [icon]="item.icon"></fa-icon>
+            <span class="menu-label">{{ item.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+</div>
