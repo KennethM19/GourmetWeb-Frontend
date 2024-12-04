@@ -25,11 +25,11 @@ export default class RegisterComponent implements OnInit {
       ]),
       nombres: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^[a-zA-Z]+$/),
+        Validators.pattern(/^[a-zA-Z]+(\s[a-zA-Z]+)?$/),
       ]),
       apellidos: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^[a-zA-Z]+$/),
+        Validators.pattern(/^[a-zA-Z]+(\s[a-zA-Z]+)?$/),
       ]),
       telefono: new FormControl('', [
         Validators.required,
