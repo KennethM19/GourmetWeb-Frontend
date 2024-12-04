@@ -6,3 +6,7 @@ input, button {
 button:disabled {
   opacity: .5;
 }
+
+P {
+  background-color: aqua;
+}
