@@ -1,1 +1,32 @@
-<p>sidebar works!</p>
+<div class="sidebar-container">
+  <aside class="sidebar" [class.collapsed]="isCollapsed$ | async">
+    <div class="sidebar-header">
+      <div class="header-content">
+        <h1 class="brand-title"> 🍴 GourmetFood</h1>
+        <button class="toggle-btn" (click)="toggleSidebar()">
+          <span class="material-icons">{{ (isCollapsed$ | async) ? 'menu' : 'Cerrar' }}</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="user-profile">
+      <div class="avatar-container">
+        <img [src]="avatarUrl" alt="User avatar" class="avatar">
+      </div>
+      <div class="username-container">
+        <span class="username">{{ userName }}</span>
+      </div>
+    </div>
+
+    <nav class="menu">
+      <ul>
+        <li *ngFor="let item of menuItems">
+          <a [routerLink]="item.route" routerLinkActive="active">
+            <span class="material-icons icon">{{ item.icon }}</span>
+            <span class="menu-label">{{ item.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+</div>

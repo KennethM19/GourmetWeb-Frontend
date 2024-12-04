@@ -1,5 +1,4 @@
-<!-- component -->
-<footer class="footer">
+<footer class="footer" [class.collapsed]="isCollapsed$ | async">
   <div class="contact">
     <h3><strong>Contacto</strong></h3>
     <p>Teléfono: +51 937121878</p>
@@ -9,8 +8,8 @@
     <h3><strong>Síguenos</strong></h3>
     <div class="social-icons">
       <a href="#" aria-label="Facebook">📱</a>
-      <a href="#" aria-label="Twitter">📱</a>
-      <a href="#" aria-label="Instagram">📱</a>
+      <a href="#" aria-label="Twitter">🐦</a>
+      <a href="#" aria-label="Instagram">🔲</a>
     </div>
   </div>
   <div class="address">
