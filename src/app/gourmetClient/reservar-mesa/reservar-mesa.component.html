@@ -1,1 +1,97 @@
-<p>reservar-mesa works!</p>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <!-- Contenedor principal, flex-col para alineación vertical -->
+    <div class="flex flex-col items-center w-full max-w-xl min-h-screen py-9" style="max-width: 1200px;">
+        <!-- Sección de Registrar Reserva -->
+        <div class="bg-white shadow-md rounded-lg p-8 w-full">
+            <h1 class="text-2xl font-bold text-center mb-6">Reservar de mesa</h1>
+            <form action="#" method="POST" class="space-y-4">
+                <!-- Número de Personas -->
+                <div>
+                    <label for="numeroPersonas" class="block text-sm font-medium text-gray-700">Número de Personas</label>
+                    <input formControlName="numeroPersonas" type="number" id="numeroPersonas" name="numeroPersonas"
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Ej. 4" min="1" required>
+                </div>
+
+                <!-- Fecha -->
+                <div>
+                    <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
+                    <input formControlName="fecha" type="date" id="fecha" name="fecha"
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                        required>
+                </div>
+
+                <!-- Hora -->
+                <div>
+                    <label for="hora" class="block text-sm font-medium text-gray-700">Hora</label>
+                    <input formControlName="hora" type="time" id="hora" name="hora"
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                        min="08:00" max="23:59" required>
+                </div>
+
+                <!-- Teléfono de Contacto -->
+                <div>
+                    <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono de Contacto</label>
+                    <input formControlName="telefono" type="tel" id="telefono" name="telefono"
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Ej. 987654321" pattern="^9\d{8}$" required>
+                </div>
+
+                <!-- Botón de Enviar -->
+                <div class="text-center">
+                    <button type="submit"
+                        class="w-full bg-blue-500 text-white py-2 rounded-md font-semibold hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                        style="background-color: orange;">
+                        Registrar Reserva
+                    </button>
+                </div>
+            </form>
+        </div>
+        <br>
+        
+        <!-- Sección de Consulta de Reservas (debajo de Registrar Reserva) -->
+        <div class="bg-white shadow-md rounded-lg p-8 w-full" >
+            <h2 class="text-2xl font-bold text-center mb-6">Consultar de reservas</h2>
+            <form action="#" method="GET" class="space-y-4">
+                <!-- Fecha para la consulta -->
+                <div>
+                    <label for="consultaFecha" class="block text-sm font-medium text-gray-700">Selecciona una Fecha</label>
+                    <input 
+                        type="date" 
+                        id="consultaFecha" 
+                        name="consultaFecha" 
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" 
+                        required>
+                </div>
+        
+                <!-- Botón de Consulta -->
+                <div class="text-center">
+                    <button 
+                        type="submit" 
+                        class="w-full bg-green-500 text-white py-2 rounded-md font-semibold hover:bg-green-600 focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                        style="background-color: orange;">
+                        Consultar Reservas
+                        
+                    </button>
+                </div>
+            </form>
+        
+            <!-- Resultados de la Consulta (Ejemplo Estático) -->
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold">Reservas para el 2024-12-05</h3>
+                <ul class="space-y-2">
+                    <li class="bg-gray-100 p-4 rounded-md">
+                        <p><strong>Hora:</strong> 12:00 PM</p>
+                        <p><strong>Número de Personas:</strong> 4</p>
+                        <p><strong>Teléfono:</strong> 987654321</p>
+                    </li>
+                    <li class="bg-gray-100 p-4 rounded-md">
+                        <p><strong>Hora:</strong> 2:00 PM</p>
+                        <p><strong>Número de Personas:</strong> 2</p>
+                        <p><strong>Teléfono:</strong> 912345678</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
