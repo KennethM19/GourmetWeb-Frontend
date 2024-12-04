@@ -23,6 +23,11 @@ export const routes: Routes = [
         canActivate: [authGuard]
       },
       {
+        path: 'detalle-pedido',
+        loadComponent: () => import("./gourmetClient/detalle-pedido/detalle-pedido.component"),
+        canActivate: [authGuard]
+      },
+      {
         path:'',
         redirectTo: 'dashboard',
         pathMatch: "full"
