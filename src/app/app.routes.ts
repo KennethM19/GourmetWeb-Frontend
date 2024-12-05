@@ -1,6 +1,4 @@
 import {Routes} from '@angular/router';
-import {authGuard} from './core/guard/auth.guard';
-import {authenticatedGuard} from './core/guard/authenticated.guard';
 
 export const routes: Routes = [
   {
@@ -24,7 +22,7 @@ export const routes: Routes = [
         loadComponent: () => import("./gourmetClient/detalle-pedido/detalle-pedido.component"),
       },
       {
-        path:'',
+        path: '',
         redirectTo: 'dashboard',
         pathMatch: "full"
       }
