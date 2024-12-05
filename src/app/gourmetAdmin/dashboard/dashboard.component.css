@@ -33,11 +33,10 @@ body {
   border: none;
   cursor: pointer;
   padding: 0 0.4rem;
-<<<<<<< HEAD
-=======
 
->>>>>>> 100f751e3040c26004a61e258106cfe261564c84
 }
+
+
 .main-content {
   display: flex;
   height: 100%;
