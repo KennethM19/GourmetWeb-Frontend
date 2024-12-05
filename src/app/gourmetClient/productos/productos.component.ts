@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {SidebarService} from '../../shared/services/sidebar.service';
 import {IProducto, ProductoService} from '../../core/services/producto/producto.service';
 import { Router } from '@angular/router';
+import { PedidoService } from '../../core/services/pedido/pedido.service';
 
 interface IPromocion {
   codigo: string;
@@ -48,8 +49,11 @@ export default class PedidosComponent implements OnInit {
   promocionAplicada: IPromocion | null = null;
   codigoPromocion: string = '';
 
-  constructor(private productoService: ProductoService, private router: Router) {
-  }
+  constructor(
+    private productoService: ProductoService, 
+    private router: Router,
+    private pedidoService: PedidoService
+  ) {}
 
   ngOnInit(): void {
     this.productoService.getProducts().subscribe((data) => {
@@ -141,6 +145,19 @@ export default class PedidosComponent implements OnInit {
 
   volverDashboard() {
     this.router.navigate(['/dashboard']);
+  }
+
+  confirmarPedido(): void {
+    setTimeout(() => {
+      const pedidoExitoso = this.pedidoService.iniciarNuevoPedido(this.resumenPedidos);
+
+      if (pedidoExitoso) {
+        alert('Pago realizado');
+        this.router.navigate(['/detalle-pedido']);
+      } else {
+        alert('Ya tienes un pedido en proceso. Espera a que se complete.');
+      }
+    }, 2000);
   }
 
 }
