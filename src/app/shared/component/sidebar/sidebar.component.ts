@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router';
 import {SidebarService} from '../../services/sidebar.service';
 import {faCalendar, faShoppingCart, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {AuthService} from '../../../core/services/auth.service';
+import {AuthService} from '../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
   avatarUrl: string = 'https://api.dicebear.com/7.x/avataaars/svg';
   menuItems = [
     {icon: faUser, label: 'Detalles de perfil', route: '/profile'},
-    {icon: faShoppingCart, label: 'Historial de pedidos', route: '/pedidos'},
+    {icon: faShoppingCart, label: 'Productos', route: '/productos'},
     {icon: faCalendar, label: 'Reservaciones', route: '/reservar-mesa'},
     {icon: faSignOutAlt, label: 'Cerrar sesión', route: '/logout'}
   ];
@@ -42,7 +42,9 @@ export class SidebarComponent implements OnInit {
     this.sidebarService.toggleSidebar();
   }
 
+
   logout() {
     this.authService.logout();
   }
+
 }
