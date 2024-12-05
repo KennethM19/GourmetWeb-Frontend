@@ -4,7 +4,7 @@
       <div class="header-content">
         <h1 class="brand-title"> 🍴 GourmetFood</h1>
         <button class="toggle-btn" (click)="toggleSidebar()">
-          <span class="material-icons">{{ (isCollapsed$ | async) ? 'menu' : 'Cerrar' }}</span>
+          <fa-icon [icon]="(isCollapsed$ | async) ? faBars : faTimes"></fa-icon>
         </button>
       </div>
     </div>
@@ -22,7 +22,7 @@
       <ul>
         <li *ngFor="let item of menuItems">
           <a [routerLink]="item.route" routerLinkActive="active">
-            <span class="material-icons icon">{{ item.icon }}</span>
+            <fa-icon [icon]="item.icon" class="icon"></fa-icon>
             <span class="menu-label">{{ item.label }}</span>
           </a>
         </li>
