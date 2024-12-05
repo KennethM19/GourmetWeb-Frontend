@@ -10,8 +10,8 @@ export const routes: Routes = [
         loadComponent: () => import("./gourmetClient/dashboard/dashboard.component"),
       },
       {
-        path: 'pedidos',
-        loadComponent: () => import("./gourmetClient/pedidos/pedidos.component"),
+        path: 'productos',
+        loadComponent: () => import("./gourmetClient/productos/productos.component"),
       },
       {
         path: 'reservar-mesa',

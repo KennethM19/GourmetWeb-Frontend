@@ -18,12 +18,20 @@
       </nav>
 
       <div class="products-grid">
-        <div class="product-card" *ngFor="let producto of productosFiltrados">
+        <tr class="product-card" *ngFor="let producto of productosFiltrados">
           <img src="" alt="{{producto.nombre}}">
-          <h3>{{ producto.nombre }}</h3>
-          <p>{{ producto.descripcion }}</p>
-          <p><strong>Precio:</strong> S/ {{ producto.precio }}</p>
-        </div>
+          <div class="product-info">
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td><strong>Precio:</strong> S/ {{ producto.precio }}</td>
+          </div>
+          <div class="quantity-controls">
+            <button class="qty-btn" (click)="incrementarProducto(producto)" [disabled]="producto.cantidad_selecionada >= producto.cantidad_disponible">+</button>
+            <span>{{producto.cantidad_selecionada}}</span>
+            <button class="qty-btn" (click)="disminuirProducto(producto)" [disabled]="producto.cantidad_selecionada <= 0">-</button>
+          </div>
+          <button class="add-btn">Agregar</button>
+        </tr>
       </div>
     </div>
 

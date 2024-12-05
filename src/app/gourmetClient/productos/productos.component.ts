@@ -5,11 +5,11 @@ import {IProducto, ProductoService} from '../../core/services/producto/producto.
 
 
 @Component({
-  selector: 'app-pedidos',
+  selector: 'app-productos',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './pedidos.component.html',
-  styleUrl: './pedidos.component.css'
+  templateUrl: './productos.component.html',
+  styleUrl: './productos.component.css'
 })
 export default class PedidosComponent implements OnInit {
   productos: IProducto[] = [];
@@ -23,7 +23,10 @@ export default class PedidosComponent implements OnInit {
 
   ngOnInit(): void {
     this.productoService.getProducts().subscribe((data) => {
-      this.productos = data;
+      this.productos = data.map(producto => ({
+        ...producto,
+        cantidad_selecionada: 0,
+      }));
       console.log(data);
     });
   }
@@ -35,6 +38,18 @@ export default class PedidosComponent implements OnInit {
   cambiarCategoria(categoria: string): void {
     this.categoriaSeleccionada = categoria;
     console.log('categoria=', this.categoriaSeleccionada);
+  }
+
+  incrementarProducto(producto: IProducto): void {
+    if (producto.cantidad_selecionada < producto.cantidad_disponible) {
+      producto.cantidad_selecionada++;
+    }
+  }
+
+  disminuirProducto(producto: IProducto): void {
+    if (producto.cantidad_selecionada > 0) {
+      producto.cantidad_selecionada--;
+    }
   }
 
 }
