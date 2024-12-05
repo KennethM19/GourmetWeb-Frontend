@@ -52,17 +52,49 @@
           }
         </div>
   
-        <div class="notes">
-          <h3>Notas Especiales</h3>
-          <textarea 
-            [(ngModel)]="notasEspeciales"
-            placeholder="Añadir especificaciones...">
-          </textarea>
+        <div class="promo-box">
+          <h3>Promociones Disponibles</h3>
+          @for (promo of promociones; track promo.codigo) {
+            @if (promo.activa) {
+              <div class="promo-item">
+                <p>{{ promo.descripcion }}</p>
+                <small>Usa el código: {{ promo.codigo }}</small>
+              </div>
+            }
+          }
+          
+          <div class="promo-input">
+            <input 
+              type="text" 
+              [(ngModel)]="codigoPromoIngresado" 
+              placeholder="Ingresa código promocional"
+            >
+            <button 
+              class="apply-promo-btn" 
+              (click)="aplicarPromocion(codigoPromoIngresado)"
+            >
+              Aplicar
+            </button>
+          </div>
         </div>
   
-        <div class="total">
-          <span>Total</span>
-          <span>S/{{ calcularTotal().toFixed(2) }}</span>
+        <div class="total-breakdown">
+          <div class="subtotal">
+            <span>Subtotal</span>
+            <span>S/{{ calcularSubtotal().toFixed(2) }}</span>
+          </div>
+          
+          @if (promocionSeleccionada) {
+            <div class="discount">
+              <span>Descuento ({{ promocionSeleccionada.descuento }}%)</span>
+              <span>-S/{{ calcularDescuento().toFixed(2) }}</span>
+            </div>
+          }
+  
+          <div class="total">
+            <span>Total</span>
+            <span>S/{{ calcularTotal().toFixed(2) }}</span>
+          </div>
         </div>
   
         <button class="confirm-btn" (click)="confirmarPedido()">

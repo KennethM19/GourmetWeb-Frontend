@@ -17,6 +17,14 @@ interface ItemCarrito {
   cantidad: number;
 }
 
+interface Promocion {
+  codigo: string;
+  descripcion: string;
+  descuento: number; // porcentaje de descuento
+  activa: boolean;
+  minimoCompra?: number;
+}
+
 @Component({
   selector: 'app-pedidos',
   standalone: true,
@@ -77,6 +85,26 @@ export default class PedidosComponent {
   carrito: ItemCarrito[] = [];
   notasEspeciales: string = '';
 
+  promociones: Promocion[] = [
+    {
+      codigo: 'PRIMERPEDIDO',
+      descripcion: '¡20% de descuento en tu primer pedido!',
+      descuento: 20,
+      activa: true,
+      minimoCompra: 50
+    },
+    {
+      codigo: 'HAPPY2024',
+      descripcion: '15% de descuento en pedidos superiores a S/100',
+      descuento: 15,
+      activa: true,
+      minimoCompra: 100
+    }
+  ];
+
+  promocionSeleccionada: Promocion | null = null;
+  codigoPromoIngresado: string = '';
+
   seleccionarCategoria(categoria: string) {
     this.categoriaSeleccionada = categoria;
   }
@@ -110,9 +138,18 @@ export default class PedidosComponent {
     }
   }
 
-  calcularTotal(): number {
+  calcularSubtotal(): number {
     return this.carrito.reduce((total, item) => 
       total + (item.producto.precio * item.cantidad), 0);
+  }
+
+  calcularDescuento(): number {
+    if (!this.promocionSeleccionada) return 0;
+    return (this.calcularSubtotal() * this.promocionSeleccionada.descuento) / 100;
+  }
+
+  calcularTotal(): number {
+    return this.calcularSubtotal() - this.calcularDescuento();
   }
 
   confirmarPedido() {
@@ -127,5 +164,21 @@ export default class PedidosComponent {
   volver() {
     // Implementar navegación hacia atrás
     window.history.back();
+  }
+
+  aplicarPromocion(codigo: string): void {
+    const promocion = this.promociones.find(
+      p => p.codigo === codigo.toUpperCase() && p.activa
+    );
+
+    if (promocion) {
+      if (this.calcularSubtotal() >= (promocion.minimoCompra || 0)) {
+        this.promocionSeleccionada = promocion;
+      } else {
+        alert(`El pedido mínimo para esta promoción es S/${promocion.minimoCompra}`);
+      }
+    } else {
+      alert('Código de promoción inválido o expirado');
+    }
   }
 }

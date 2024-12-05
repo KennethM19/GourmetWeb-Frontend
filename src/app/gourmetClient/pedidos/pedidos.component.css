@@ -136,8 +136,61 @@
   .promo-box {
     background-color: #ffebee;
     padding: 15px;
-    border-radius: 4px;
+    border-radius: 8px;
     margin: 20px 0;
+  }
+  
+  .promo-item {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #ddd;
+  }
+  
+  .promo-item p {
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  .promo-item small {
+    color: #b44;
+    font-weight: bold;
+  }
+  
+  .promo-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .promo-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .apply-promo-btn {
+    padding: 8px 15px;
+    background-color: #b44;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .total-breakdown {
+    margin: 20px 0;
+  }
+  
+  .subtotal, .discount {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .discount {
+    color: #b44;
+    font-style: italic;
   }
   
   .total {
