@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarService } from '../../shared/services/sidebar.service';
+import { FormsModule } from '@angular/forms';
 
 interface Producto {
   id: number;
@@ -11,10 +12,15 @@ interface Producto {
   imagen: string;
 }
 
+interface ItemCarrito {
+  producto: Producto;
+  cantidad: number;
+}
+
 @Component({
   selector: 'app-pedidos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './pedidos.component.html',
   styleUrl: './pedidos.component.css'
 })
@@ -23,6 +29,7 @@ export default class PedidosComponent {
   isCollapsed$ = this.sidebarService.isCollapsed$;
   
   categorias = ['Entradas', 'Platos Principales', 'Postres', 'Bebidas'];
+  categoriaSeleccionada: string = 'Platos Principales';
   
   productos: Producto[] = [
     {
@@ -67,15 +74,58 @@ export default class PedidosComponent {
     }
   ];
 
-  carrito: any[] = [
-    { producto: 'Ensalada Gourmet', cantidad: 2, precio: 24.00 },
-    { producto: 'Bistec a la Parrilla', cantidad: 1, precio: 18.00 },
-    { producto: 'Volcán de Chocolate', cantidad: 1, precio: 8.00 },
-    { producto: 'Pai de limón', cantidad: 1, precio: 12.00 },
-    { producto: 'Tiramisu de avellanas', cantidad: 1, precio: 12.00 }
-  ];
+  carrito: ItemCarrito[] = [];
+  notasEspeciales: string = '';
+
+  seleccionarCategoria(categoria: string) {
+    this.categoriaSeleccionada = categoria;
+  }
+
+  getProductosFiltrados(): Producto[] {
+    return this.productos.filter(p => p.categoria === this.categoriaSeleccionada);
+  }
+
+  agregarAlCarrito(producto: Producto, cantidad: number) {
+    const itemExistente = this.carrito.find(item => item.producto.id === producto.id);
+    
+    if (itemExistente) {
+      itemExistente.cantidad += cantidad;
+    } else {
+      this.carrito.push({ producto, cantidad });
+    }
+  }
+
+  eliminarDelCarrito(productoId: number) {
+    this.carrito = this.carrito.filter(item => item.producto.id !== productoId);
+  }
+
+  actualizarCantidad(productoId: number, nuevaCantidad: number) {
+    const item = this.carrito.find(item => item.producto.id === productoId);
+    if (item) {
+      if (nuevaCantidad <= 0) {
+        this.eliminarDelCarrito(productoId);
+      } else {
+        item.cantidad = nuevaCantidad;
+      }
+    }
+  }
 
   calcularTotal(): number {
-    return this.carrito.reduce((total, item) => total + (item.precio * item.cantidad), 0);
+    return this.carrito.reduce((total, item) => 
+      total + (item.producto.precio * item.cantidad), 0);
+  }
+
+  confirmarPedido() {
+    // Aquí implementarías la lógica para procesar el pedido
+    console.log('Pedido confirmado', {
+      items: this.carrito,
+      notas: this.notasEspeciales,
+      total: this.calcularTotal()
+    });
+  }
+
+  volver() {
+    // Implementar navegación hacia atrás
+    window.history.back();
   }
 }
