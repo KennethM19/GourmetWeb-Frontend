@@ -32,6 +32,10 @@
   background-color: #b44;
 }
 
+button:disabled {
+  opacity: .5;
+}
+
 .add-btn {
   background-color: #b44;
   margin-left: auto;
@@ -133,6 +137,7 @@
 
 .order-item {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin: 0.625rem 0;
   padding: 0.625rem 0;

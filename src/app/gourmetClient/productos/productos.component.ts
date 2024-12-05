@@ -13,6 +13,7 @@ import {IProducto, ProductoService} from '../../core/services/producto/producto.
 })
 export default class PedidosComponent implements OnInit {
   productos: IProducto[] = [];
+  resumenPedidos: IProducto[] = [];
   private sidebarService = inject(SidebarService);
   categorias = ['Entradas', 'plato', 'Postres', 'bebida'];
   categoriaSeleccionada: string = '';
@@ -50,6 +51,30 @@ export default class PedidosComponent implements OnInit {
     if (producto.cantidad_selecionada > 0) {
       producto.cantidad_selecionada--;
     }
+  }
+
+  agregarProducto(producto: IProducto): void {
+    if (producto.cantidad_selecionada < producto.cantidad_disponible) {
+      producto.cantidad_selecionada++;
+      const productoEnResumen = this.resumenPedidos.find(p => p.id === producto.id);
+
+      if (!productoEnResumen) {
+        this.resumenPedidos.push({...producto});
+      }
+    }
+  }
+
+  quitarProducto(producto: IProducto): void {
+    if (producto.cantidad_selecionada > 0) {
+      producto.cantidad_selecionada--;
+      if (producto.cantidad_selecionada === 0) {
+        this.resumenPedidos = this.resumenPedidos.filter(p => p.id !== producto.id)
+      }
+    }
+  }
+
+  calcularTotal(): number {
+    return this.resumenPedidos.reduce((total, producto) => total + producto.cantidad_selecionada * producto.precio, 0);
   }
 
 }
