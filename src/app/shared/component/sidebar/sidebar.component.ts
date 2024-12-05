@@ -42,7 +42,9 @@ export class SidebarComponent implements OnInit {
     this.sidebarService.toggleSidebar();
   }
 
+
   logout() {
     this.authService.logout();
   }
+
 }
