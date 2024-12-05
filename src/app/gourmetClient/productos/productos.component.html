@@ -1,0 +1,73 @@
+<div class="orders-container" [class.collapsed]="isCollapsed$ | async">
+  <header class="header">
+    <button class="btn-volver">Volver</button>
+    <div class="cart-icon">🛒</div>
+  </header>
+
+  <main class="main-content">
+    <div class="menu-section">
+      <nav class="categories">
+        <button
+          *ngFor="let categoria of categorias"
+          class="category-btn"
+          [class.active]="categoria === categoriaSeleccionada"
+          (click)="cambiarCategoria(categoria)"
+        >
+          {{ categoria }}
+        </button>
+      </nav>
+
+      <div class="products-grid">
+        <tr class="product-card" *ngFor="let producto of productosFiltrados">
+          <img src="" alt="{{producto.nombre}}">
+          <div class="product-info">
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td><strong>Precio:</strong> S/ {{ producto.precio }}</td>
+          </div>
+          <div class="quantity-controls">
+            <button class="qty-btn" (click)="disminuirProducto(producto)"
+                    [disabled]="producto.cantidad_selecionada <= 0">-
+            </button>
+            <span>{{ producto.cantidad_selecionada }}</span>
+            <button class="qty-btn" (click)="incrementarProducto(producto)"
+                    [disabled]="producto.cantidad_selecionada >= producto.cantidad_disponible">+
+            </button>
+          </div>
+          <button class="add-btn" (click)="agregarProducto(producto)" [disabled]="producto.cantidad_selecionada === 0">Agregar</button>
+        </tr>
+      </div>
+    </div>
+
+    <aside class="order-summary">
+      <h2>Resumen del Pedido</h2>
+      <div *ngFor="let producto of resumenPedidos" class="order-item">
+        <span>{{ producto.nombre }}</span>
+        <span>Cantidad: {{ producto.cantidad_selecionada}}</span>
+        <span>Total: {{ producto.cantidad_selecionada * producto.precio | currency }}</span>
+        <button (click)="quitarProducto(producto)">Quitar</button>
+      </div>
+
+      <div *ngIf="resumenPedidos.length === 0">
+        <p>No hay productos en el resumen.</p>
+      </div>
+
+      <div class="total">
+        <h3>Total: {{ calcularTotal() | currency }}</h3>
+      </div>
+
+      <div class="notes">
+        <h3>Notas Especiales</h3>
+        <textarea placeholder="Añadir especificaciones..."></textarea>
+      </div>
+
+      <div class="promo-box">
+        <h3>Promoción Especial</h3>
+        <p>¡20% de descuento en tu primer pedido!</p>
+      </div>
+
+
+      <button class="confirm-btn">Confirmar Pedido</button>
+    </aside>
+  </main>
+</div>

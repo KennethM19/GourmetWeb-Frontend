@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SidebarService } from '../../shared/services/sidebar.service';
+import {Component, inject} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {SidebarService} from '../../shared/services/sidebar.service';
 
 interface Pedido {
   plato: string;

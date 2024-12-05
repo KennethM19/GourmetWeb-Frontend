@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {HeadComponent} from '../head/head.component';
 import {SidebarComponent} from '../sidebar/sidebar.component';
 import {FooterComponent} from '../footer/footer.component';
 import {RouterOutlet} from '@angular/router';
