@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router';
 import {SidebarService} from '../../services/sidebar.service';
 import {faCalendar, faShoppingCart, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {AuthService} from '../../../core/services/auth.service';
+import {AuthService} from '../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',
