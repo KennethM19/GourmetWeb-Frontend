@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {SidebarService} from '../../services/sidebar.service';
-import { faUser, faClipboardList, faChair, faSignOutAlt, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {faBars, faChair, faClipboardList, faSignOutAlt, faTimes, faUser} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {AuthService} from '../../../core/services/auth/auth.service';
 
@@ -25,10 +25,10 @@ export class SidebarComponent implements OnInit {
   userName: string = 'lucia Ramirez';
   avatarUrl: string = 'https://api.dicebear.com/7.x/avataaars/svg';
   menuItems = [
-    { icon: faUser, label: 'Detalles de perfil', route: '/profile' },
-    { icon: faClipboardList, label: 'Historial de pedidos', route: '/orders' },
-    { icon: faChair, label: 'Reservaciones', route: '/reservations' },
-    { icon: faSignOutAlt, label: 'Cerrar sesión', route: '/logout' }
+    {icon: faUser, label: 'Detalles de perfil', route: '/profile'},
+    {icon: faClipboardList, label: 'Productos', route: '/productos'},
+    {icon: faChair, label: 'Reservaciones', route: '/reservar-mesa'},
+    {icon: faSignOutAlt, label: 'Cerrar sesión', route: '/logout'}
   ];
   isLoggedIn: boolean = false;
 

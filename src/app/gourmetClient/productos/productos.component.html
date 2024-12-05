@@ -34,7 +34,9 @@
                     [disabled]="producto.cantidad_selecionada >= producto.cantidad_disponible">+
             </button>
           </div>
-          <button class="add-btn" (click)="agregarProducto(producto)" [disabled]="producto.cantidad_selecionada === 0">Agregar</button>
+          <button class="add-btn" (click)="agregarProducto(producto)" [disabled]="producto.cantidad_selecionada === 0">
+            Agregar
+          </button>
         </tr>
       </div>
     </div>
@@ -43,7 +45,7 @@
       <h2>Resumen del Pedido</h2>
       <div *ngFor="let producto of resumenPedidos" class="order-item">
         <span>{{ producto.nombre }}</span>
-        <span>Cantidad: {{ producto.cantidad_selecionada}}</span>
+        <span>Cantidad: {{ producto.cantidad_selecionada }}</span>
         <span>Total: {{ producto.cantidad_selecionada * producto.precio | currency }}</span>
         <button (click)="quitarProducto(producto)">Quitar</button>
       </div>

@@ -15,7 +15,7 @@ export default class PedidosComponent implements OnInit {
   productos: IProducto[] = [];
   resumenPedidos: IProducto[] = [];
   private sidebarService = inject(SidebarService);
-  categorias = ['Entradas', 'plato', 'Postres', 'bebida'];
+  categorias = ['1', '2', '3', '4'];
   categoriaSeleccionada: string = '';
   isCollapsed$ = this.sidebarService.isCollapsed$;
 

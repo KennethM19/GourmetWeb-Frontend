@@ -1,69 +1,69 @@
 <div class="detalle-container" [class.collapsed]="isCollapsed$ | async">
-    <header class="header">
-      <button class="btn-volver">Volver</button>
-      <h1>Gestión de Pedidos</h1>
-    </header>
+  <header class="header">
+    <button class="btn-volver">Volver</button>
+    <h1>Gestión de Pedidos</h1>
+  </header>
 
-    <main class="main-content">
-      <!-- Pedido Actual -->
-      <section class="section-card">
-        <h2>Pedido Actual</h2>
-        <div class="pedido-actual">
-          <div class="pedido-info">
-            <div class="pedido-detalles">
-              <h3>{{ pedidoActual.plato }}</h3>
-              <p>Cantidad: {{ pedidoActual.cantidad }}</p>
-              <p>Subtotal: S/{{ pedidoActual.subtotal.toFixed(2) }}</p>
-            </div>
-            <span class="estado" [class]="pedidoActual.estado.toLowerCase().replace(' ', '-')">
+  <main class="main-content">
+    <!-- Pedido Actual -->
+    <section class="section-card">
+      <h2>Pedido Actual</h2>
+      <div class="pedido-actual">
+        <div class="pedido-info">
+          <div class="pedido-detalles">
+            <h3>{{ pedidoActual.plato }}</h3>
+            <p>Cantidad: {{ pedidoActual.cantidad }}</p>
+            <p>Subtotal: S/{{ pedidoActual.subtotal.toFixed(2) }}</p>
+          </div>
+          <span class="estado" [class]="pedidoActual.estado.toLowerCase().replace(' ', '-')">
               {{ pedidoActual.estado }}
             </span>
-          </div>
-          <div class="estado-timeline">
-            <div class="timeline-item" [class.active]="pedidoActual.estado === 'Recibido'">
-              <div class="dot"></div>
-              <span>Recibido</span>
-            </div>
-            <div class="timeline-item" [class.active]="pedidoActual.estado === 'En preparación'">
-              <div class="dot"></div>
-              <span>En preparación</span>
-            </div>
-            <div class="timeline-item" [class.active]="pedidoActual.estado === 'En ruta'">
-              <div class="dot"></div>
-              <span>En ruta</span>
-            </div>
-            <div class="timeline-item" [class.active]="pedidoActual.estado === 'Entregado'">
-              <div class="dot"></div>
-              <span>Entregado</span>
-            </div>
-          </div>
-          <button class="btn-cancelar">Cancelar Pedido</button>
         </div>
-      </section>
-
-      <!-- Historial de Pedidos -->
-      <section class="section-card">
-        <h2>Historial de Pedidos</h2>
-        @for (pedido of historialPedidos; track pedido.fecha) {
-          <div class="historial-item">
-            <div class="historial-info">
-              <p class="fecha">{{ pedido.fecha }}</p>
-              <p>{{ pedido.platos }} Platos - S/{{ pedido.total.toFixed(2) }}</p>
-            </div>
-            <span class="estado-tag">{{ pedido.estado }}</span>
-            <button class="btn-detalles" (click)="verDetallesPedido(pedido)">Ver Detalles</button>
+        <div class="estado-timeline">
+          <div class="timeline-item" [class.active]="pedidoActual.estado === 'Recibido'">
+            <div class="dot"></div>
+            <span>Recibido</span>
           </div>
-        }
-      </section>
-
-      <!-- Platos Frecuentes -->
-      <section class="section-card">
-        <h2>Platos Frecuentes</h2>
-        <div class="plato-frecuente">
-          <img [src]="platoFrecuente.imagen" [alt]="platoFrecuente.nombre">
-          <h3>{{ platoFrecuente.nombre }}</h3>
-          <button class="btn-agregar">Agregar al Pedido</button>
+          <div class="timeline-item" [class.active]="pedidoActual.estado === 'En preparación'">
+            <div class="dot"></div>
+            <span>En preparación</span>
+          </div>
+          <div class="timeline-item" [class.active]="pedidoActual.estado === 'En ruta'">
+            <div class="dot"></div>
+            <span>En ruta</span>
+          </div>
+          <div class="timeline-item" [class.active]="pedidoActual.estado === 'Entregado'">
+            <div class="dot"></div>
+            <span>Entregado</span>
+          </div>
         </div>
-      </section>
-    </main>
-  </div>
+        <button class="btn-cancelar">Cancelar Pedido</button>
+      </div>
+    </section>
+
+    <!-- Historial de Pedidos -->
+    <section class="section-card">
+      <h2>Historial de Pedidos</h2>
+      @for (pedido of historialPedidos; track pedido.fecha) {
+        <div class="historial-item">
+          <div class="historial-info">
+            <p class="fecha">{{ pedido.fecha }}</p>
+            <p>{{ pedido.platos }} Platos - S/{{ pedido.total.toFixed(2) }}</p>
+          </div>
+          <span class="estado-tag">{{ pedido.estado }}</span>
+          <button class="btn-detalles" (click)="verDetallesPedido(pedido)">Ver Detalles</button>
+        </div>
+      }
+    </section>
+
+    <!-- Platos Frecuentes -->
+    <section class="section-card">
+      <h2>Platos Frecuentes</h2>
+      <div class="plato-frecuente">
+        <img [src]="platoFrecuente.imagen" [alt]="platoFrecuente.nombre">
+        <h3>{{ platoFrecuente.nombre }}</h3>
+        <button class="btn-agregar">Agregar al Pedido</button>
+      </div>
+    </section>
+  </main>
+</div>
