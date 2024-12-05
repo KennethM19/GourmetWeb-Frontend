@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
   avatarUrl: string = 'https://api.dicebear.com/7.x/avataaars/svg';
   menuItems = [
     {icon: faUser, label: 'Detalles de perfil', route: '/profile'},
-    {icon: faShoppingCart, label: 'Historial de pedidos', route: '/pedidos'},
+    {icon: faShoppingCart, label: 'Productos', route: '/productos'},
     {icon: faCalendar, label: 'Reservaciones', route: '/reservar-mesa'},
     {icon: faSignOutAlt, label: 'Cerrar sesión', route: '/logout'}
   ];

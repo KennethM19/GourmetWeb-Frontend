@@ -9,7 +9,8 @@ export interface IProducto {
     precio: number,
     tipo: string;
     disponible: boolean;
-    cantidad: number;
+    cantidad_disponible: number;
+    cantidad_selecionada: number;
 }
 
 @Injectable({
