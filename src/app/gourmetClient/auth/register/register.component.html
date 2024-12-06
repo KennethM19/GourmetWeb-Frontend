@@ -1,67 +1,72 @@
-<div class="bg-sky-100 flex justify-center items-center h-screen">
+<div class="bg-gray-100 flex justify-center items-center h-screen">
   <!-- Left: Image -->
   <div class="w-1/2 h-screen hidden lg:block">
-    <img src="https://chenabgourmet.b-cdn.net/wp-content/uploads/2021/09/Blog-Designs.png" alt="Placeholder Image"
-         class="object-cover w-full h-full">
+    <img src="assets/restaurante.jpg" alt="Restaurant Image"
+         class="object-cover w-full h-full rounded-r-lg shadow-lg">
   </div>
 
   <!-- Right: Registration Form -->
-  <div class="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
-    <h1 class="text-2xl font-semibold mb-4">Register</h1>
+  <div class="lg:p-20 md:p-16 sm:p-10 p-8 w-full lg:w-1/2 bg-white shadow-md rounded-lg">
+    <h1 class="text-3xl font-bold text-red-600 mb-6 text-center">Regístrate</h1>
+    <p class="text-gray-600 mb-8 text-center">Crea tu cuenta y comienza a disfrutar de los mejores platillos.</p>
+
     <form (ngSubmit)="register()" [formGroup]="formRegister" novalidate>
       <!-- DNI -->
-      <div class="mb-4">
-        <label for="dni" class="block text-gray-600">DNI</label>
-        <input formControlName="dni" type="text" id="dni" name="dni"
-               class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+      <div class="mb-6">
+        <label for="dni" class="block text-gray-700 font-medium">DNI</label>
+        <input formControlName="dni" type="text" id="dni" name="dni" placeholder="Ingresa tu DNI"
+               class="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-red-500 transition-all"
                autocomplete="off">
       </div>
 
       <!-- Nombre -->
-      <div class="mb-4">
-        <label for="nombres" class="block text-gray-600">Nombres</label>
-        <input formControlName="nombres" type="text" id="nombres" name="nombres"
-               class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+      <div class="mb-6">
+        <label for="nombres" class="block text-gray-700 font-medium">Nombre</label>
+        <input formControlName="nombres" type="text" id="nombres" name="nombres" placeholder="Ingresa tu nombre"
+               class="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-red-500 transition-all"
                autocomplete="off">
       </div>
 
       <!-- Apellidos -->
-      <div class="mb-4">
-        <label for="apellidos" class="block text-gray-600">Apellidos</label>
+      <div class="mb-6">
+        <label for="apellidos" class="block text-gray-700 font-medium">Apellidos</label>
         <input formControlName="apellidos" type="text" id="apellidos" name="apellidos"
-               class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+               placeholder="Ingresa tus apellidos"
+               class="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-red-500 transition-all"
                autocomplete="off">
       </div>
 
       <!-- Email -->
-      <div class="mb-4">
-        <label for="email" class="block text-gray-600">Email</label>
-        <input formControlName="email" type="email" id="email" name="email"
-               class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+      <div class="mb-6">
+        <label for="email" class="block text-gray-700 font-medium">Email</label>
+        <input formControlName="email" type="email" id="email" name="email" placeholder="Correo electrónico"
+               class="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-red-500 transition-all"
                autocomplete="off">
       </div>
 
       <!-- Teléfono -->
-      <div class="mb-4">
-        <label for="telefono" class="block text-gray-600">Teléfono</label>
-        <input formControlName="telefono" type="tel" id="telefono" name="telefono"
-               class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+      <div class="mb-6">
+        <label for="telefono" class="block text-gray-700 font-medium">Teléfono</label>
+        <input formControlName="telefono" type="tel" id="telefono" name="telefono" placeholder="Número de teléfono"
+               class="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-red-500 transition-all"
                autocomplete="off">
       </div>
 
-      <!-- Password -->
-      <div class="mb-4">
-        <label for="password" class="block text-gray-600">Contraseña</label>
+      <!-- Contraseña -->
+      <div class="mb-6">
+        <label for="password" class="block text-gray-700 font-medium">Contraseña</label>
         <input formControlName="password" type="password" id="password" name="password"
-               class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+               placeholder="Crea una contraseña"
+               class="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-red-500 transition-all"
                autocomplete="off">
       </div>
 
-      <!-- Confirm Password -->
-      <div class="mb-4">
-        <label for="confirmPassword" class="block text-gray-600">Confirmar contraseña</label>
+      <!-- Confirmar Contraseña -->
+      <div class="mb-6">
+        <label for="confirmPassword" class="block text-gray-700 font-medium">Confirmar Contraseña</label>
         <input formControlName="confirmPassword" type="password" id="confirmPassword" name="confirmPassword"
-               class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+               placeholder="Confirma tu contraseña"
+               class="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-red-500 transition-all"
                autocomplete="off">
         <div *ngIf="formRegister.get('confirmPassword')?.touched && formRegister.get('confirmPassword')?.invalid"
              class="text-red-500">
@@ -69,15 +74,15 @@
         </div>
       </div>
 
-      <!-- Register Error -->
-      <div *ngIf="registerError" class="mb-4 text-red-500">
-        Error en el registro, porfavor revise sus datos.
+      <!-- Error Message -->
+      <div *ngIf="registerError" class="mb-4 text-red-500 text-center">
+        <p>Error en el registro. Por favor, verifica tus datos.</p>
       </div>
 
-      <!-- Register Button -->
+      <!-- Botón de Registro -->
       <button type="submit" [disabled]="formRegister.invalid"
-              class="bg-red-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full">
-        Register
+              class="bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md py-3 px-4 w-full transition-all">
+        Registrarse
       </button>
     </form>
   </div>

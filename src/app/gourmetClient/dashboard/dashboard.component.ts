@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarService } from '../../shared/services/sidebar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,12 @@ import { SidebarService } from '../../shared/services/sidebar.service';
 })
 export default class DashboardComponent {
   private sidebarService = inject(SidebarService);
+  private router = inject(Router);
   isCollapsed$ = this.sidebarService.isCollapsed$;
+
+  navegarA(ruta: string) {
+    this.router.navigate([ruta]);
+  }
 
   platillos = [
     {
