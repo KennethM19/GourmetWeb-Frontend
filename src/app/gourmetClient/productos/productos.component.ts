@@ -68,7 +68,6 @@ export default class PedidosComponent implements OnInit {
                 ...producto,
                 cantidad_selecionada: 0,
             }));
-            console.log(data);
         });
 
         this.productos.forEach(producto => {
@@ -178,7 +177,6 @@ export default class PedidosComponent implements OnInit {
             } else {
                 this.imagenesProductos[productoId] = 'assets/default-image.jpg';
             }
-            console.log(productoId, productoTipo);
         });
     }
 
