@@ -1,10 +1,9 @@
-
-import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { SidebarService } from '../../shared/services/sidebar.service';
+import {Component, inject, OnInit} from '@angular/core';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {SidebarService} from '../../shared/services/sidebar.service';
 
 @Component({
   selector: 'app-reservar-mesa',
@@ -21,8 +20,10 @@ export default class ReservarMesaComponent implements OnInit {
   formRegister: FormGroup = new FormGroup({});
   reservaError: boolean = false;
   registerSucess: boolean = false;
-  constructor(private http: HttpClient, private router: Router) {}
-  
+
+  constructor(private http: HttpClient, private router: Router) {
+  }
+
   ngOnInit(): void {
     this.formRegister = new FormGroup({
       numeroMesa: new FormControl('', [
@@ -49,7 +50,7 @@ export default class ReservarMesaComponent implements OnInit {
 
   reservar(): void {
     const apiUrl = 'https://server.rest.devmb.top/admin-res/api/v1/reservas/';
-    const { numeroMesa,numeroPersonas, fecha, hora, telefono, observaciones } = this.formRegister.value;
+    const {numeroMesa, numeroPersonas, fecha, hora, telefono, observaciones} = this.formRegister.value;
 
     // Verificar que todos los campos sean válidos
     if (this.formRegister.invalid) {
@@ -68,9 +69,9 @@ export default class ReservarMesaComponent implements OnInit {
 
     const reserva = {
 
-      fecha_reserva:fechaISO2,
+      fecha_reserva: fechaISO2,
       mesa: numeroMesa,
-      numero_personas:numeroPersonas,
+      numero_personas: numeroPersonas,
       observaciones: observaciones || 'Sin observaciones',
       usuario: 1, // Cambiar según el usuario actual si aplica
       estado: 1, // Estado por defecto
