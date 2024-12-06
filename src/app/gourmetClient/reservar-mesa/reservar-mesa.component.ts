@@ -22,7 +22,7 @@ export default class ReservarMesaComponent implements OnInit {
   reservaError: boolean = false;
   registerSucess: boolean = false;
   constructor(private http: HttpClient, private router: Router) {}
-
+  
   ngOnInit(): void {
     this.formRegister = new FormGroup({
       numeroMesa: new FormControl('', [
