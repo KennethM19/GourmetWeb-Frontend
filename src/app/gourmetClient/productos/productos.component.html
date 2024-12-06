@@ -1,6 +1,6 @@
 <div class="orders-container" [class.collapsed]="isCollapsed$ | async">
   <header class="header">
-    <button class="btn-volver">Volver</button>
+    <button class="btn-volver" (click)="volverDashboard()">Volver</button>
     <div class="cart-icon">🛒</div>
   </header>
 
@@ -10,16 +10,16 @@
         <button
           *ngFor="let categoria of categorias"
           class="category-btn"
-          [class.active]="categoria === categoriaSeleccionada"
-          (click)="cambiarCategoria(categoria)"
+          [class.active]="categoria.id === categoriaSeleccionada"
+          (click)="cambiarCategoria(categoria.id)"
         >
-          {{ categoria }}
+          {{ categoria.nombre }}
         </button>
       </nav>
 
       <div class="products-grid">
         <tr class="product-card" *ngFor="let producto of productosFiltrados">
-          <img src="" alt="{{producto.nombre}}">
+          <img [src]="getImagenProducto(producto.id)" alt="{{producto.nombre}}">
           <div class="product-info">
             <td>{{ producto.nombre }}</td>
             <td>{{ producto.descripcion }}</td>
@@ -34,16 +34,18 @@
                     [disabled]="producto.cantidad_selecionada >= producto.cantidad_disponible">+
             </button>
           </div>
-          <button class="add-btn" (click)="agregarProducto(producto)" [disabled]="producto.cantidad_selecionada === 0">Agregar</button>
+          <button class="add-btn" (click)="agregarProducto(producto)" [disabled]="producto.cantidad_selecionada === 0">
+            Agregar
+          </button>
         </tr>
       </div>
     </div>
 
     <aside class="order-summary">
-      <h2>Resumen del Pedido</h2>
+      <h2><strong>Resumen del Pedido</strong></h2>
       <div *ngFor="let producto of resumenPedidos" class="order-item">
         <span>{{ producto.nombre }}</span>
-        <span>Cantidad: {{ producto.cantidad_selecionada}}</span>
+        <span>Cantidad: {{ producto.cantidad_selecionada }}</span>
         <span>Total: {{ producto.cantidad_selecionada * producto.precio | currency }}</span>
         <button (click)="quitarProducto(producto)">Quitar</button>
       </div>
@@ -52,22 +54,56 @@
         <p>No hay productos en el resumen.</p>
       </div>
 
-      <div class="total">
-        <h3>Total: {{ calcularTotal() | currency }}</h3>
+      <div class="promo-box">
+        <h3>Promociones Disponibles</h3>
+        @for (promo of promociones; track promo.codigo) {
+          @if (promo.activa) {
+            <div class="promo-item">
+              <p>{{ promo.descripcion }}</p>
+              <small>Usa el código: {{ promo.codigo }}</small>
+            </div>
+          }
+        }
+
+        <div class="promo-input">
+          <input
+            type="text"
+            [(ngModel)]="codigoPromocion"
+            placeholder="Ingresa código promocional"
+          >
+          <button
+            class="apply-promo-btn"
+            (click)="aplicarPromocion()"
+          >
+            Aplicar
+          </button>
+        </div>
+      </div>
+
+      <div class="total-breakdown">
+        <div class="subtotal">
+          <span>Subtotal:</span>
+          <span>S/{{ calcularSubtotal().toFixed(2) }}</span>
+        </div>
+
+        @if (promocionAplicada) {
+          <div class="discount">
+            <span>Descuento ({{ promocionAplicada.descuento }}%):</span>
+            <span>-S/{{ calcularDescuento().toFixed(2) }}</span>
+          </div>
+        }
+
+        <div class="total">
+          <span>Total:</span>
+          <span>S/{{ calcularTotal().toFixed(2) }}</span>
+        </div>
       </div>
 
       <div class="notes">
         <h3>Notas Especiales</h3>
         <textarea placeholder="Añadir especificaciones..."></textarea>
       </div>
-
-      <div class="promo-box">
-        <h3>Promoción Especial</h3>
-        <p>¡20% de descuento en tu primer pedido!</p>
-      </div>
-
-
-      <button class="confirm-btn">Confirmar Pedido</button>
+      <button class="confirm-btn" (click)="confirmarPedido()">Confirmar Pedido</button>
     </aside>
   </main>
 </div>

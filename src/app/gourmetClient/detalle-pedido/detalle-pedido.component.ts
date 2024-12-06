@@ -1,20 +1,8 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SidebarService} from '../../shared/services/sidebar.service';
-
-interface Pedido {
-  plato: string;
-  cantidad: number;
-  subtotal: number;
-  estado: 'Recibido' | 'En preparación' | 'En ruta' | 'Entregado';
-}
-
-interface HistorialPedido {
-  fecha: string;
-  platos: number;
-  total: number;
-  estado: string;
-}
+import {HistorialPedido, Pedido, PedidoService} from '../../core/services/pedido/pedido.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-detalle-pedido',
@@ -23,33 +11,63 @@ interface HistorialPedido {
   templateUrl: './detalle-pedido.component.html',
   styleUrl: './detalle-pedido.component.css'
 })
-export default class DetallePedidoComponent {
+export default class DetallePedidoComponent implements OnInit, OnDestroy {
   private sidebarService = inject(SidebarService);
   isCollapsed$ = this.sidebarService.isCollapsed$;
+  private intervalId: any;
 
-  pedidoActual: Pedido = {
-    plato: 'Ensalada César',
-    cantidad: 2,
-    subtotal: 18.00,
-    estado: 'En preparación'
-  };
-
-  historialPedidos: HistorialPedido[] = [
-    {
-      fecha: '15/09/2023',
-      platos: 2,
-      total: 25.00,
-      estado: 'Entregado'
-    }
-  ];
+  pedidoActual: Pedido | null = null;
+  historialPedidos: HistorialPedido[] = [];
 
   platoFrecuente = {
-    nombre: 'Volcán de Chocolate',
+    nombre: 'Volcan de Chocolate',
     imagen: 'https://i.ibb.co/5XQSqf3/volcandechocolate.jpg'
   };
 
+  mostrarModal = false;
+  pedidoSeleccionado: HistorialPedido | null = null;
+
+  constructor(
+    private pedidoService: PedidoService,
+    private router: Router
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.pedidoService.pedidoActual$.subscribe(pedido => {
+      this.pedidoActual = pedido;
+    });
+
+    this.pedidoService.historialPedidos$.subscribe(historial => {
+      this.historialPedidos = historial;
+    });
+  }
+
+  cancelarPedido(): void {
+    const motivo = prompt('Ingrese el motivo de cancelación y su correo electrónico:');
+    if (motivo) {
+      this.pedidoService.cancelarPedido();
+      alert('Se recibió el motivo, se estará validando el pedido y se le reembolsará la compra. Le llegará una verificación por email.');
+    }
+  }
+
   verDetallesPedido(pedido: HistorialPedido): void {
-    // Aquí irá la lógica para mostrar los detalles del pedido
-    console.log('Mostrando detalles del pedido:', pedido);
+    this.pedidoSeleccionado = pedido;
+    this.mostrarModal = true;
+  }
+
+  cerrarModal(): void {
+    this.mostrarModal = false;
+    this.pedidoSeleccionado = null;
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  volverDashboard(): void {
+    this.router.navigate(['/dashboard']);
   }
 }

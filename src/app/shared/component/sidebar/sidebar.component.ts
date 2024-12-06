@@ -2,8 +2,8 @@ import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {SidebarService} from '../../services/sidebar.service';
-import {faCalendar, faShoppingCart, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {faBars, faChair, faClipboardList, faSignOutAlt, faTimes, faUser} from '@fortawesome/free-solid-svg-icons';
 import {AuthService} from '../../../core/services/auth/auth.service';
 
 @Component({
@@ -17,20 +17,20 @@ export class SidebarComponent implements OnInit {
   private sidebarService = inject(SidebarService);
   isCollapsed$ = this.sidebarService.isCollapsed$;
 
-  faUser = faUser;
-
   constructor(private authService: AuthService) {
   }
+
+  isLoggedIn: boolean = false;
+
 
   userName: string = 'lucia Ramirez';
   avatarUrl: string = 'https://api.dicebear.com/7.x/avataaars/svg';
   menuItems = [
     {icon: faUser, label: 'Detalles de perfil', route: '/profile'},
-    {icon: faShoppingCart, label: 'Productos', route: '/productos'},
-    {icon: faCalendar, label: 'Reservaciones', route: '/reservar-mesa'},
+    {icon: faClipboardList, label: 'Productos', route: '/productos'},
+    {icon: faChair, label: 'Reservaciones', route: '/reservar-mesa'},
     {icon: faSignOutAlt, label: 'Cerrar sesión', route: '/logout'}
   ];
-  isLoggedIn: boolean = false;
 
   ngOnInit(): void {
     this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {
@@ -38,13 +38,15 @@ export class SidebarComponent implements OnInit {
     })
   }
 
-  toggleSidebar(): void {
-    this.sidebarService.toggleSidebar();
-  }
-
-
   logout() {
     this.authService.logout();
   }
 
+  faBars = faBars;
+  faTimes = faTimes;
+  faUser = faUser;
+
+  toggleSidebar(): void {
+    this.sidebarService.toggleSidebar();
+  }
 }

@@ -4,7 +4,7 @@
       <div class="header-content">
         <h1 class="brand-title"> 🍴 GourmetFood</h1>
         <button class="toggle-btn" (click)="toggleSidebar()">
-          <span class="material-icons">{{ (isCollapsed$ | async) ? 'menu' : 'Cerrar' }}</span>
+          <fa-icon [icon]="(isCollapsed$ | async) ? faBars : faTimes"></fa-icon>
         </button>
       </div>
     </div>

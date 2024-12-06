@@ -3,26 +3,36 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 export interface IProducto {
-    id: number;
-    nombre: string;
-    descripcion: string;
-    precio: number,
-    tipo: string;
-    disponible: boolean;
-    cantidad_disponible: number;
-    cantidad_selecionada: number;
+  id: number;
+  nombre: string;
+  descripcion: string;
+  precio: number,
+  tipo: string;
+  disponible: boolean;
+  cantidad_disponible: number;
+  cantidad_selecionada: number;
+}
+
+export interface IImagenProducto {
+  nombre: string;
+  ext: string;
+  ruta_parcial: string;
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ProductoService {
-    private apiUrl = 'https://server.rest.devmb.top/admin-res/api/v1/productos/';
+  private apiUrl = 'https://server.rest.devmb.top/admin-res/api/v1/productos/';
 
-    constructor(private http: HttpClient) {
-    }
+  constructor(private http: HttpClient) {
+  }
 
-    getProducts(): Observable<IProducto[]> {
-        return this.http.get<IProducto[]>(this.apiUrl);
-    }
+  getProducts(): Observable<IProducto[]> {
+    return this.http.get<IProducto[]>(this.apiUrl);
+  }
+
+  getImage(urlImg: string): Observable<IImagenProducto[]> {
+    return this.http.get<IImagenProducto[]>(urlImg);
+  }
 }

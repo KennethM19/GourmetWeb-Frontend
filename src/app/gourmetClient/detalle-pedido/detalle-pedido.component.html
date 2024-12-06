@@ -1,6 +1,6 @@
 <div class="detalle-container" [class.collapsed]="isCollapsed$ | async">
   <header class="header">
-    <button class="btn-volver">Volver</button>
+    <button class="btn-volver" (click)="volverDashboard()">Volver</button>
     <h1>Gestión de Pedidos</h1>
   </header>
 
@@ -11,33 +11,47 @@
       <div class="pedido-actual">
         <div class="pedido-info">
           <div class="pedido-detalles">
-            <h3>{{ pedidoActual.plato }}</h3>
-            <p>Cantidad: {{ pedidoActual.cantidad }}</p>
-            <p>Subtotal: S/{{ pedidoActual.subtotal.toFixed(2) }}</p>
+            @for (producto of pedidoActual?.productos; track producto.nombre) {
+              <div class="producto-item">
+                <h3>{{ producto.nombre }}</h3>
+                <p>Cantidad: {{ producto.cantidad }}</p>
+                <p>Precio unitario: S/{{ producto.precio }}</p>
+                <p>Subtotal: S/{{ producto.cantidad * producto.precio }}</p>
+              </div>
+            }
+            <p class="total"><strong>Total: S/{{ pedidoActual?.subtotal?.toFixed(2) }}</strong></p>
           </div>
-          <span class="estado" [class]="pedidoActual.estado.toLowerCase().replace(' ', '-')">
-              {{ pedidoActual.estado }}
-            </span>
+          <span class="estado"
+                [class]="(pedidoActual && pedidoActual.estado) ? pedidoActual.estado.toLowerCase().replace(' ', '-') : 'estado-desconocido'">
+            {{ pedidoActual?.estado || 'Estado desconocido' }}
+          </span>
         </div>
-        <div class="estado-timeline">
-          <div class="timeline-item" [class.active]="pedidoActual.estado === 'Recibido'">
+        <div class="estado-timeline" [attr.data-estado]="pedidoActual?.estado">
+          <div class="timeline-item"
+               [class.completed]="pedidoActual?.estado === 'En preparación' || pedidoActual?.estado === 'En ruta' || pedidoActual?.estado === 'Entregado'"
+               [class.active]="pedidoActual?.estado === 'Recibido'">
             <div class="dot"></div>
             <span>Recibido</span>
           </div>
-          <div class="timeline-item" [class.active]="pedidoActual.estado === 'En preparación'">
+          <div class="timeline-item"
+               [class.completed]="pedidoActual?.estado === 'En ruta' || pedidoActual?.estado === 'Entregado'"
+               [class.active]="pedidoActual?.estado === 'En preparación'">
             <div class="dot"></div>
             <span>En preparación</span>
           </div>
-          <div class="timeline-item" [class.active]="pedidoActual.estado === 'En ruta'">
+          <div class="timeline-item"
+               [class.completed]="pedidoActual?.estado === 'Entregado'"
+               [class.active]="pedidoActual?.estado === 'En ruta'">
             <div class="dot"></div>
             <span>En ruta</span>
           </div>
-          <div class="timeline-item" [class.active]="pedidoActual.estado === 'Entregado'">
+          <div class="timeline-item"
+               [class.active]="pedidoActual?.estado === 'Entregado'">
             <div class="dot"></div>
             <span>Entregado</span>
           </div>
         </div>
-        <button class="btn-cancelar">Cancelar Pedido</button>
+        <button class="btn-cancelar" (click)="cancelarPedido()">Cancelar Pedido</button>
       </div>
     </section>
 
@@ -66,4 +80,28 @@
       </div>
     </section>
   </main>
+</div>
+
+<div class="modal-overlay" *ngIf="mostrarModal" (click)="cerrarModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Detalles del Pedido</h2>
+      <button class="close-btn" (click)="cerrarModal()">X</button>
+    </div>
+    <div class="modal-body">
+      <p class="fecha">Fecha: {{ pedidoSeleccionado?.fecha }}</p>
+      <div class="productos-lista">
+        @for (producto of pedidoSeleccionado?.productos; track producto.nombre) {
+          <div class="producto-detalle">
+            <span>{{ producto.nombre }}</span>
+            <span>Cantidad: {{ producto.cantidad }}</span>
+            <span>Subtotal: S/{{ (producto.cantidad * producto.precio).toFixed(2) }}</span>
+          </div>
+        }
+      </div>
+      <div class="total-modal">
+        <strong>Total: S/{{ pedidoSeleccionado?.total?.toFixed(2) }}</strong>
+      </div>
+    </div>
+  </div>
 </div>
