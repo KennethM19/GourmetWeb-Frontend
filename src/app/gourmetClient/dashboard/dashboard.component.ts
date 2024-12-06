@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SidebarService } from '../../shared/services/sidebar.service';
-import { Router } from '@angular/router';
+import {Component, inject} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {SidebarService} from '../../shared/services/sidebar.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',

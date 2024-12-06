@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
 const MAX_HISTORIAL = 4;
 
@@ -40,7 +40,7 @@ export class PedidoService {
     }
 
     this.pedidoConfirmado = true;
-    const subtotal = productos.reduce((total, p) => 
+    const subtotal = productos.reduce((total, p) =>
       total + (p.precio * p.cantidad_selecionada), 0);
 
     const nuevoPedido: Pedido = {
@@ -52,7 +52,7 @@ export class PedidoService {
       subtotal: subtotal,
       estado: 'Recibido'
     };
-    
+
     this.pedidoActualSubject.next(nuevoPedido);
     this.iniciarSeguimientoPedido();
     return true;
@@ -88,7 +88,7 @@ export class PedidoService {
 
       const nuevosPedidos = [nuevoPedidoHistorial, ...historialActual]
         .slice(0, MAX_HISTORIAL);
-      
+
       this.historialPedidosSubject.next(nuevosPedidos);
       this.pedidoActualSubject.next(null);
       this.limpiarIntervalo();
@@ -138,4 +138,4 @@ export class PedidoService {
       this.limpiarIntervalo();
     }
   }
-} 
+}

@@ -1,9 +1,8 @@
-import {Component, inject, OnInit, OnDestroy} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SidebarService} from '../../shared/services/sidebar.service';
-import { PedidoService } from '../../core/services/pedido/pedido.service';
-import { Router } from '@angular/router';
-import { Pedido, ProductoPedido, HistorialPedido } from '../../core/services/pedido/pedido.service';
+import {HistorialPedido, Pedido, PedidoService} from '../../core/services/pedido/pedido.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-detalle-pedido',
@@ -31,7 +30,8 @@ export default class DetallePedidoComponent implements OnInit, OnDestroy {
   constructor(
     private pedidoService: PedidoService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.pedidoService.pedidoActual$.subscribe(pedido => {

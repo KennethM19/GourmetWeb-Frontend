@@ -21,12 +21,13 @@
             }
             <p class="total"><strong>Total: S/{{ pedidoActual?.subtotal?.toFixed(2) }}</strong></p>
           </div>
-          <span class="estado" [class]="(pedidoActual && pedidoActual.estado) ? pedidoActual.estado.toLowerCase().replace(' ', '-') : 'estado-desconocido'">
+          <span class="estado"
+                [class]="(pedidoActual && pedidoActual.estado) ? pedidoActual.estado.toLowerCase().replace(' ', '-') : 'estado-desconocido'">
             {{ pedidoActual?.estado || 'Estado desconocido' }}
           </span>
         </div>
         <div class="estado-timeline" [attr.data-estado]="pedidoActual?.estado">
-          <div class="timeline-item" 
+          <div class="timeline-item"
                [class.completed]="pedidoActual?.estado === 'En preparación' || pedidoActual?.estado === 'En ruta' || pedidoActual?.estado === 'Entregado'"
                [class.active]="pedidoActual?.estado === 'Recibido'">
             <div class="dot"></div>
