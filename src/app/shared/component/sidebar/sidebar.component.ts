@@ -19,7 +19,7 @@ export class SidebarComponent {
   menuItems = [
     { icon: 'PERFIL', label: 'Detalles de perfil', route: '/profile' },
     { icon: 'PEDIDOS', label: 'Historial de pedidos', route: '/orders' },
-    { icon: 'MESAS', label: 'Reservaciones', route: '/reservations' },
+    { icon: 'MESAS', label: 'Reservaciones', route: '/reservar-mesa' },
     { icon: 'LOGOUT', label: 'Cerrar sesión', route: '/logout' }
   ];
 

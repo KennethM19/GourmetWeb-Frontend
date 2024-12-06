@@ -6,7 +6,15 @@
       <!-- Sección de Registrar Reserva -->
       <div class="card">
         <h1 class="title">Reservar Mesa</h1>
-        <form action="#" method="POST" class="form">
+        <form (ngSubmit)="reservar()" [formGroup]="formRegister" class = "form" novalidate >
+
+          <!-- Número de Personas -->
+          <div class="form-group">
+            <label for="numeroMesa">Numero de Mesa</label>
+            <input formControlName="numeroMesa" type="number" id="numeroMesa" name="numeroMesa"
+                   placeholder="Ej. 5" min="1" required>
+          </div>
+
           <!-- Número de Personas -->
           <div class="form-group">
             <label for="numeroPersonas">Número de Personas</label>
@@ -37,6 +45,15 @@
           <div class="form-group text-center">
             <button type="submit" class="btn btn-primary">Registrar Reserva</button>
           </div>
+
+          <div *ngIf="registerSucess" class="mb-4 text-green-500">
+            Mesa registrada correctamente.
+          </div>
+
+          <div *ngIf="reservaError" class="mb-4 text-red-500">
+            Error al registrar la mesa.
+          </div>
+
         </form>
       </div>
   
