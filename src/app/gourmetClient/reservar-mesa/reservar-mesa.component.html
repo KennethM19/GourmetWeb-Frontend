@@ -1,97 +1,97 @@
 <div class="menu-container" [class.collapsed]="isCollapsed$ | async">
-  
- 
-    <!-- Contenedor principal -->
-    <div class="main-container">
-      <!-- Sección de Registrar Reserva -->
-      <div class="card">
-        <h1 class="title">Reservar Mesa</h1>
-        <form (ngSubmit)="reservar()" [formGroup]="formRegister" class = "form" novalidate >
 
-          <!-- Número de Personas -->
-          <div class="form-group">
-            <label for="numeroMesa">Numero de Mesa</label>
-            <input formControlName="numeroMesa" type="number" id="numeroMesa" name="numeroMesa"
-                   placeholder="Ej. 5" min="1" required>
-          </div>
+  <!-- Contenedor principal -->
+  <div class="main-container">
+    <!-- Sección de Registrar Reserva -->
+    <div class="card">
+      <h1 class="title">Reservar Mesa</h1>
+      <form (ngSubmit)="reservar()" [formGroup]="formRegister" class = "form" novalidate >
 
-          <!-- Número de Personas -->
-          <div class="form-group">
-            <label for="numeroPersonas">Número de Personas</label>
-            <input formControlName="numeroPersonas" type="number" id="numeroPersonas" name="numeroPersonas"
-                   placeholder="Ej. 4" min="1" required>
-          </div>
-  
-          <!-- Fecha -->
-          <div class="form-group">
-            <label for="fecha">Fecha</label>
-            <input formControlName="fecha" type="date" id="fecha" name="fecha" required>
-          </div>
-  
-          <!-- Hora -->
-          <div class="form-group">
-            <label for="hora">Hora</label>
-            <input formControlName="hora" type="time" id="hora" name="hora" min="08:00" max="23:59" required>
-          </div>
-  
-          <!-- Teléfono de Contacto -->
-          <div class="form-group">
-            <label for="telefono">Teléfono de Contacto</label>
-            <input formControlName="telefono" type="tel" id="telefono" name="telefono"
-                   placeholder="Ej. 987654321" pattern="^9\d{8}$" required>
-          </div>
-  
-          <!-- Botón de Enviar -->
-          <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Registrar Reserva</button>
-          </div>
-
-          <div *ngIf="registerSucess" class="mb-4 text-green-500">
-            Mesa registrada correctamente.
-          </div>
-
-          <div *ngIf="reservaError" class="mb-4 text-red-500">
-            Error al registrar la mesa.
-          </div>
-
-        </form>
-      </div>
-  
-      <!-- Sección de Consulta de Reservas -->
-      <div class="card">
-        <h2 class="title">Consultar Reservas</h2>
-        <form action="#" method="GET" class="form">
-          <!-- Fecha para la consulta -->
-          <div class="form-group">
-            <label for="consultaFecha">Selecciona una Fecha</label>
-            <input type="date" id="consultaFecha" name="consultaFecha" required>
-          </div>
-  
-          <!-- Botón de Consulta -->
-          <div class="form-group text-center">
-            <button type="submit" class="btn btn-secondary">Consultar Reservas</button>
-          </div>
-        </form>
-  
-        <!-- Resultados de la Consulta (Ejemplo Estático) -->
-        <div class="result-container">
-          <h3 class="result-title">Reservas para el 2024-12-05</h3>
-          <ul class="result-list">
-            <li class="result-item">
-              <p><strong>Hora:</strong> 12:00 PM</p>
-              <p><strong>Número de Personas:</strong> 4</p>
-              <p><strong>Teléfono:</strong> 987654321</p>
-            </li>
-            <li class="result-item">
-              <p><strong>Hora:</strong> 2:00 PM</p>
-              <p><strong>Número de Personas:</strong> 2</p>
-              <p><strong>Teléfono:</strong> 912345678</p>
-            </li>
-          </ul>
+        <!-- Número de Personas -->
+        <div class="form-group">
+          <label for="numeroMesa">Numero de Mesa</label>
+          <input formControlName="numeroMesa" type="number" id="numeroMesa" name="numeroMesa"
+                 placeholder="Ej. 5" min="1" required>
         </div>
+
+        <!-- Número de Personas -->
+        <div class="form-group">
+          <label for="numeroPersonas">Número de Personas</label>
+          <input formControlName="numeroPersonas" type="number" id="numeroPersonas" name="numeroPersonas"
+                 placeholder="Ej. 4" min="1" required>
+        </div>
+
+        <!-- Fecha -->
+        <div class="form-group">
+          <label for="fecha">Fecha</label>
+          <input formControlName="fecha" type="date" id="fecha" name="fecha" required>
+        </div>
+
+        <!-- Hora -->
+        <div class="form-group">
+          <label for="hora">Hora</label>
+          <input formControlName="hora" type="time" id="hora" name="hora" min="08:00" max="23:59" required>
+        </div>
+
+        <!-- Teléfono de Contacto -->
+        <div class="form-group">
+          <label for="telefono">Teléfono de Contacto</label>
+          <input formControlName="telefono" type="tel" id="telefono" name="telefono"
+                 placeholder="Ej. 987654321" pattern="^9\d{8}$" required>
+        </div>
+
+        <!-- Botón de Enviar -->
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary">Registrar Reserva</button>
+        </div>
+
+        <div *ngIf="registerSucess" class="mb-4 text-green-500">
+          Mesa registrada correctamente.
+        </div>
+
+        <div *ngIf="reservaError" class="mb-4 text-red-500">
+          Error al registrar la mesa.
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Sección de Consulta de Reservas -->
+    <div class="card">
+      <h2 class="title">Consultar Reservas</h2>
+      <form action="#" method="GET" class="form">
+        <!-- Fecha para la consulta -->
+        <div class="form-group">
+          <label for="consultaFecha">Selecciona una Fecha</label>
+          <input type="date" id="consultaFecha" name="consultaFecha" required>
+        </div>
+
+        <!-- Botón de Consulta -->
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-secondary">Consultar Reservas</button>
+        </div>
+      </form>
+
+      <!-- Resultados de la Consulta (Ejemplo Estático) -->
+      <div class="result-container">
+        <h3 class="result-title">Reservas para el 2024-12-05</h3>
+        <ul class="result-list">
+          <li class="result-item">
+            <p><strong>Hora:</strong> 12:00 PM</p>
+            <p><strong>Número de Personas:</strong> 4</p>
+            <p><strong>Teléfono:</strong> 987654321</p>
+          </li>
+          <li class="result-item">
+            <p><strong>Hora:</strong> 2:00 PM</p>
+            <p><strong>Número de Personas:</strong> 2</p>
+            <p><strong>Teléfono:</strong> 912345678</p>
+          </li>
+        </ul>
       </div>
     </div>
-  
-  
-  
+  </div>
+
+
+
 </div>
+

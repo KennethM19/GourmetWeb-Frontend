@@ -17,12 +17,12 @@ import { SidebarService } from '../../shared/services/sidebar.service';
 export default class ReservarMesaComponent implements OnInit {
   private sidebarService = inject(SidebarService);
   isCollapsed$ = this.sidebarService.isCollapsed$;
-  
+
   formRegister: FormGroup = new FormGroup({});
   reservaError: boolean = false;
   registerSucess: boolean = false;
   constructor(private http: HttpClient, private router: Router) {}
-
+  
   ngOnInit(): void {
     this.formRegister = new FormGroup({
       numeroMesa: new FormControl('', [
@@ -59,7 +59,7 @@ export default class ReservarMesaComponent implements OnInit {
     }
 
     // Convertir fecha y hora a formato ISO 8601
-    
+
     const fechaISO = new Date(`${fecha}T${hora}`)
     fechaISO.setHours(fechaISO.getHours() - 5);
 
@@ -67,7 +67,7 @@ export default class ReservarMesaComponent implements OnInit {
     console.log(numeroMesa);
 
     const reserva = {
-      
+
       fecha_reserva:fechaISO2,
       mesa: numeroMesa,
       numero_personas:numeroPersonas,
@@ -81,8 +81,8 @@ export default class ReservarMesaComponent implements OnInit {
         console.log('Reserva registrada con éxito');
         this.registerSucess = true;
         this.formRegister.reset();
-         // Redirige a una página después de la reserva
-        
+        // Redirige a una página después de la reserva
+
       },
       error: (error) => {
         this.reservaError = true;
