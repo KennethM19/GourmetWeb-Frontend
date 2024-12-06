@@ -13,6 +13,12 @@ export interface IProducto {
   cantidad_selecionada: number;
 }
 
+export interface IImagenProducto {
+  nombre: string;
+  ext: string;
+  ruta_parcial: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,5 +30,10 @@ export class ProductoService {
 
   getProducts(): Observable<IProducto[]> {
     return this.http.get<IProducto[]>(this.apiUrl);
+  }
+
+  getImage(productoId: number, productoTipo: string): Observable<IImagenProducto[]> {
+    const apiImagen = `https://server.rest.devmb.top/admin-res/api/v1/archivo/producto/${productoId}/${productoTipo}`;
+    return this.http.get<IImagenProducto[]>(apiImagen);
   }
 }

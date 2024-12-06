@@ -10,16 +10,16 @@
         <button
           *ngFor="let categoria of categorias"
           class="category-btn"
-          [class.active]="categoria === categoriaSeleccionada"
-          (click)="cambiarCategoria(categoria)"
+          [class.active]="categoria.id === categoriaSeleccionada"
+          (click)="cambiarCategoria(categoria.id)"
         >
-          {{ categoria }}
+          {{ categoria.nombre }}
         </button>
       </nav>
 
       <div class="products-grid">
         <tr class="product-card" *ngFor="let producto of productosFiltrados">
-          <img src="" alt="{{producto.nombre}}">
+          <img [src]="getImagenProducto(producto.id)" alt="{{producto.nombre}}">
           <div class="product-info">
             <td>{{ producto.nombre }}</td>
             <td>{{ producto.descripcion }}</td>
@@ -64,15 +64,15 @@
             </div>
           }
         }
-        
+
         <div class="promo-input">
-          <input 
-            type="text" 
-            [(ngModel)]="codigoPromocion" 
+          <input
+            type="text"
+            [(ngModel)]="codigoPromocion"
             placeholder="Ingresa código promocional"
           >
-          <button 
-            class="apply-promo-btn" 
+          <button
+            class="apply-promo-btn"
             (click)="aplicarPromocion()"
           >
             Aplicar
@@ -85,7 +85,7 @@
           <span>Subtotal:</span>
           <span>S/{{ calcularSubtotal().toFixed(2) }}</span>
         </div>
-        
+
         @if (promocionAplicada) {
           <div class="discount">
             <span>Descuento ({{ promocionAplicada.descuento }}%):</span>
