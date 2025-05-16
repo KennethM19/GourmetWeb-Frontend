@@ -25,6 +25,10 @@
             <fa-icon [icon]="faUser"></fa-icon>
             <span class="menu-label">Iniciar sesión</span>
           </a>
+          <a [routerLink]="'/register'" routerLinkActive="active">
+            <fa-icon [icon]="faUser"></fa-icon>
+            <span class="menu-label">Registrar</span>
+          </a>
         </li>
         <li *ngFor="let item of menuItems" [hidden]="!isLoggedIn">
           <a [routerLink]="item.route" routerLinkActive="active"

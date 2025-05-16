@@ -76,11 +76,15 @@ export default class PedidosComponent implements OnInit {
   }
 
   get productosFiltrados(): IProducto[] {
+      if (!this.categoriaSeleccionada || this.categoriaSeleccionada === '') {
+    return this.productos;
+  }
     return this.productos.filter(producto => producto.tipo == this.categoriaSeleccionada);
   }
 
   cambiarCategoria(categoria: string): void {
     this.categoriaSeleccionada = categoria;
+    console.log(this.categoriaSeleccionada);
   }
 
   incrementarProducto(producto: IProducto): void {
@@ -105,8 +109,9 @@ export default class PedidosComponent implements OnInit {
           cantidad_selecionada: producto.cantidad_selecionada,
         });
       } else {
-        productoEnResumen.cantidad_selecionada++;
+        productoEnResumen.cantidad_selecionada += producto.cantidad_selecionada;
       }
+      producto.cantidad_selecionada = 0;
     }
   }
 
@@ -184,4 +189,8 @@ export default class PedidosComponent implements OnInit {
     return this.imagenesProductos[productoId] || 'assets/default-image.jpg';
   }
 
+  borrarfiltro() {
+    this.categoriaSeleccionada = '';
+    console.log(this.categoriaSeleccionada);
+  }
 }
