@@ -8,6 +8,12 @@
     <div class="menu-section">
       <nav class="categories">
         <button
+          class="category-btn"
+          [class.active]="categoriaSeleccionada === ''"
+          (click)="borrarfiltro()">
+          Todos
+        </button>
+        <button
           *ngFor="let categoria of categorias"
           class="category-btn"
           [class.active]="categoria.id === categoriaSeleccionada"
@@ -16,14 +22,13 @@
           {{ categoria.nombre }}
         </button>
       </nav>
-
-      <div class="products-grid">
-        <tr class="product-card" *ngFor="let producto of productosFiltrados">
+      <section class="products-grid">
+        <div class="product-card" *ngFor="let producto of productosFiltrados">
           <img [src]="getImagenProducto(producto.id)" alt="{{producto.nombre}}">
           <div class="product-info">
-            <td>{{ producto.nombre }}</td>
-            <td>{{ producto.descripcion }}</td>
-            <td><strong>Precio:</strong> S/ {{ producto.precio }}</td>
+            <div>{{ producto.nombre }}</div>
+            <div>{{ producto.descripcion }}</div>
+            <div><strong>Precio:</strong> S/ {{ producto.precio }}</div>
           </div>
           <div class="quantity-controls">
             <button class="qty-btn" (click)="disminuirProducto(producto)"
@@ -37,8 +42,8 @@
           <button class="add-btn" (click)="agregarProducto(producto)" [disabled]="producto.cantidad_selecionada === 0">
             Agregar
           </button>
-        </tr>
-      </div>
+        </div>
+      </section>
     </div>
 
     <aside class="order-summary">
@@ -46,7 +51,7 @@
       <div *ngFor="let producto of resumenPedidos" class="order-item">
         <span>{{ producto.nombre }}</span>
         <span>Cantidad: {{ producto.cantidad_selecionada }}</span>
-        <span>Total: {{ producto.cantidad_selecionada * producto.precio | currency }}</span>
+        <span>Total: {{ producto.cantidad_selecionada * producto.precio | currency:'S/' }}</span>
         <button (click)="quitarProducto(producto)">Quitar</button>
       </div>
 
