@@ -20,7 +20,7 @@ export default class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.formLogin = new FormGroup({
-      username: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
@@ -30,14 +30,14 @@ export default class LoginComponent implements OnInit {
   }
 
   login(): void {
-    const {username, password} = this.formLogin.value;
-    this.authService.login(username, password).subscribe({
+    const {email, password} = this.formLogin.value;
+    this.authService.login(email, password).subscribe({
       next: () => {
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         this.loginError = true;
-        console.error('Error en las credenciales');
+        console.error('error en el login',error);
       },
     });
   }
