@@ -48,7 +48,8 @@ export default class RegisterComponent implements OnInit {
   }
 
   register(): void {
-    const apiUrl = 'https://server.rest.devmb.top/admin-res/api/v1/usuarios/';
+    //https://server.rest.devmb.top/admin-res/api/v1/usuarios/
+    const apiUrl = 'https://gourmetweb-backend.onrender.com/api/users/register/';
     const {dni, nombres, apellidos, telefono, email, password, confirmPassword} = this.formRegister.value;
 
     if (password !== confirmPassword) {
@@ -58,12 +59,13 @@ export default class RegisterComponent implements OnInit {
     }
 
     const user = {
-      dni: dni,
-      nombres: nombres,
-      apellidos: apellidos,
-      telefono: telefono,
+      doc_number: dni,
+      first_name: nombres,
+      last_name: apellidos,
+      phone: telefono,
       email: email,
       password: password,
+      role: 1,
     }
 
     this.http.post(apiUrl, user).subscribe({
@@ -73,7 +75,7 @@ export default class RegisterComponent implements OnInit {
       },
       error: (error) => {
         this.registerError = true;
-        console.error('Error en la login', error);
+        console.error('Error en el registro', error);
       }
     })
   }
