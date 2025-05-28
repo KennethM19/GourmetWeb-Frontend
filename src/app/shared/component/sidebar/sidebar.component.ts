@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
-import {SidebarService} from '../../services/sidebar.service';
+import {SidebarService} from '../../../core/services/sidebar/sidebar.service';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {faBars, faChair, faClipboardList, faSignOutAlt, faTimes, faUser} from '@fortawesome/free-solid-svg-icons';
 import {AuthService} from '../../../core/services/auth/auth.service';
@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
   isLoggedIn: boolean = false;
 
 
-  userName: string = 'lucia Ramirez';
+  userName: string = '';
   avatarUrl: string = 'https://api.dicebear.com/7.x/avataaars/svg';
   menuItems = [
     {icon: faUser, label: 'Detalles de perfil', route: '/profile'},
@@ -35,6 +35,11 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {
       this.isLoggedIn = loggedIn;
+
+      if(loggedIn) {
+        const userData = this.authService.getUserData();
+        this.userName = userData?.first_name || 'Usuario';
+      }
     })
   }
 

@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SidebarService} from '../../services/sidebar.service';
+import {SidebarService} from '../../../core/services/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-footer',

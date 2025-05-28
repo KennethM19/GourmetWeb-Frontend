@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SidebarService} from '../../shared/services/sidebar.service';
+import {SidebarService} from '../../core/services/sidebar/sidebar.service';
 import {Router} from '@angular/router';
 
 @Component({

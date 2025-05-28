@@ -1,6 +1,6 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SidebarService} from '../../shared/services/sidebar.service';
+import {SidebarService} from '../../core/services/sidebar/sidebar.service';
 import {HistorialPedido, Pedido, PedidoService} from '../../core/services/pedido/pedido.service';
 import {Router} from '@angular/router';
 

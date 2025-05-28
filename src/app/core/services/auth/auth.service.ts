@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://gourmetweb-backend.onrender.com/api/users/token/';
+  private apiUrl = 'https://gourmetweb-backend.onrender.com/api/users/login/';
   private refreshUrl = 'https://gourmetweb-backend.onrender.com/users/token/refresh/';
   private tokenKey = 'accessToken';
   private refreshTokenKey = 'refreshToken';
@@ -20,23 +20,16 @@ export class AuthService {
       tap(response => {
         if (response.access && response.refresh) {
           this.setTokens(response.access, response.refresh);
+          this.setUserData(response.user);
           this.loggedIn.next(true);
         }
       })
     );
   }
 
-  private setTokens(accessToken: string, refreshToken: string): void {
-    localStorage.setItem(this.tokenKey, accessToken);
-    localStorage.setItem(this.refreshTokenKey, refreshToken);
-  }
-
-  private getToken(): string | null {
-    return typeof window !== 'undefined' ? localStorage.getItem(this.tokenKey) : null;
-  }
-
-  private getRefreshToken(): string | null {
-    return typeof window !== 'undefined' ? localStorage.getItem(this.refreshTokenKey) : null;
+  getUserData(): any {
+    const data = localStorage.getItem('userData');
+    return data ? JSON.parse(data) : null;
   }
 
   isAuthenticated(): boolean {
@@ -59,8 +52,9 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.refreshTokenKey);
+    localStorage.removeItem('userData')
     this.loggedIn.next(false);
-    this.router.navigate(['/login']); // o donde quieras redirigir
+    this.router.navigate(['/login']);
   }
 
   refreshAccessToken(): Observable<any> {
@@ -72,10 +66,28 @@ export class AuthService {
 
     return this.httpClient.post<any>(this.refreshUrl, { refresh }).pipe(
       tap(response => {
-        if (response.access) {
+        if (response.access_token) {
           localStorage.setItem(this.tokenKey, response.access);
         }
       })
     );
   }
+
+    private setUserData(user: any): void {
+    localStorage.setItem('userData', JSON.stringify(user));
+  }
+
+  private setTokens(accessToken: string, refreshToken: string): void {
+    localStorage.setItem(this.tokenKey, accessToken);
+    localStorage.setItem(this.refreshTokenKey, refreshToken);
+  }
+
+  private getToken(): string | null {
+    return typeof window !== 'undefined' ? localStorage.getItem(this.tokenKey) : null;
+  }
+
+  private getRefreshToken(): string | null {
+    return typeof window !== 'undefined' ? localStorage.getItem(this.refreshTokenKey) : null;
+  }
+
 }
