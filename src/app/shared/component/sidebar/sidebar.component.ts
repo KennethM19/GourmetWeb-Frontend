@@ -39,6 +39,7 @@ export class SidebarComponent implements OnInit {
       if(loggedIn) {
         const userData = this.authService.getUserData();
         this.userName = userData?.first_name || 'Usuario';
+        console.log("datos",userData)
       }
     })
   }

@@ -2,13 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://gourmetweb-backend.onrender.com/api/users/login/';
-  private refreshUrl = 'https://gourmetweb-backend.onrender.com/users/token/refresh/';
+  private apiUrl = `${environment.apiURL}/api/users/login/`;
+  private refreshUrl = `${environment.apiURL}/users/token/refresh/`;
+  private userDataUrl = `${environment.apiURL}/api/users/profile/`;
   private tokenKey = 'accessToken';
   private refreshTokenKey = 'refreshToken';
   private loggedIn = new BehaviorSubject<boolean>(this.isAuthenticated());
@@ -17,19 +19,18 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     return this.httpClient.post<any>(this.apiUrl, { email, password }).pipe(
-      tap(response => {
+      tap((response) => {
+        console.log('Respuesta de login:', response);
         if (response.access && response.refresh) {
           this.setTokens(response.access, response.refresh);
-          this.setUserData(response.user);
           this.loggedIn.next(true);
+
+          this.getUserProfile().subscribe((user) => {
+            this.setUserData(user);
+          });
         }
       })
     );
-  }
-
-  getUserData(): any {
-    const data = localStorage.getItem('userData');
-    return data ? JSON.parse(data) : null;
   }
 
   isAuthenticated(): boolean {
@@ -52,7 +53,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.refreshTokenKey);
-    localStorage.removeItem('userData')
+    localStorage.removeItem('userData');
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
   }
@@ -65,7 +66,7 @@ export class AuthService {
     }
 
     return this.httpClient.post<any>(this.refreshUrl, { refresh }).pipe(
-      tap(response => {
+      tap((response) => {
         if (response.access_token) {
           localStorage.setItem(this.tokenKey, response.access);
         }
@@ -73,8 +74,30 @@ export class AuthService {
     );
   }
 
-    private setUserData(user: any): void {
-    localStorage.setItem('userData', JSON.stringify(user));
+    getUserData(): any | null {
+    const userData = localStorage.getItem('userData');
+    console.log(localStorage.getItem('userData'));
+    if (userData) {
+      try {
+        return JSON.parse(userData);
+      } catch (e) {
+        console.error('Error al parsear los datos del usuario:', e);
+        return null;
+      }
+    }
+    return null;
+  }
+
+  private setUserData(user: any): void {
+    if (user && typeof user === 'object') {
+      localStorage.setItem('userData', JSON.stringify(user));
+    } else {
+      console.warn('Usuario inválido, no se guarda:', user);
+    }
+  }
+
+  private getUserProfile(): Observable<any> {
+    return this.httpClient.get<any>(this.userDataUrl);
   }
 
   private setTokens(accessToken: string, refreshToken: string): void {
@@ -83,11 +106,14 @@ export class AuthService {
   }
 
   private getToken(): string | null {
-    return typeof window !== 'undefined' ? localStorage.getItem(this.tokenKey) : null;
+    return typeof window !== 'undefined'
+      ? localStorage.getItem(this.tokenKey)
+      : null;
   }
 
   private getRefreshToken(): string | null {
-    return typeof window !== 'undefined' ? localStorage.getItem(this.refreshTokenKey) : null;
+    return typeof window !== 'undefined'
+      ? localStorage.getItem(this.refreshTokenKey)
+      : null;
   }
-
 }

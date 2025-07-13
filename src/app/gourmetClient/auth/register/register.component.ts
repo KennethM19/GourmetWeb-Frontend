@@ -3,6 +3,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} f
 import {CommonModule} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -48,8 +49,7 @@ export default class RegisterComponent implements OnInit {
   }
 
   register(): void {
-    //https://server.rest.devmb.top/admin-res/api/v1/usuarios/
-    const apiUrl = 'https://gourmetweb-backend.onrender.com/api/users/register/';
+    const apiUrl = `${environment.apiURL}/api/users/register/`;
     const {dni, nombres, apellidos, telefono, email, password, confirmPassword} = this.formRegister.value;
 
     if (password !== confirmPassword) {
