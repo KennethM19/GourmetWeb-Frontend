@@ -22,6 +22,10 @@ export const routes: Routes = [
         loadComponent: () => import("./gourmetClient/detalle-pedido/detalle-pedido.component"),
       },
       {
+        path: 'profile',
+        loadComponent: () => import("./gourmetClient/detalle-usuario/detalle-usuario.component"),
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: "full"

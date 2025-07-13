@@ -5,7 +5,6 @@ import {SidebarService} from '../../core/services/sidebar/sidebar.service';
 import {IImagenProducto, IProducto, ProductoService} from '../../core/services/producto/producto.service';
 import {Router} from '@angular/router';
 import {PedidoService} from '../../core/services/pedido/pedido.service';
-import { IProduct } from '../../interface/IProduct';
 
 interface IPromocion {
   codigo: string;

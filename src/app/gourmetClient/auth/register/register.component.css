@@ -1,8 +1,93 @@
-input, button {
-  cursor: pointer;
+.container {
+  display: flex;
+  height: 100vh;
+  background-color: #f3f3f3;
   font-family: var(--font-family-1);
 }
 
+.left-panel {
+  width: 50%;
+  display: none;
+}
+
+.left-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+@media (min-width: 1024px) {
+  .left-panel {
+    display: block;
+  }
+}
+
+.form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  padding: 40px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.form-container h1 {
+  text-align: center;
+  color: #dc2626;
+  margin-bottom: 20px;
+}
+
+.form-container p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: #333;
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #dc2626;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #dc2626;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover:enabled {
+  background-color: #b91c1c;
+}
+
 button:disabled {
-  opacity: .5;
+  opacity: 0.5;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 0.9em;
+  margin-bottom: 16px;
 }

@@ -1,0 +1,9 @@
+main {
+    margin-left: 260px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+main.collapsed {
+  margin-left: 100px;
+}

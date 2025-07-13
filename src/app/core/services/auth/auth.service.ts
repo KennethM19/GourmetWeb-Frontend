@@ -20,7 +20,6 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     return this.httpClient.post<any>(this.apiUrl, { email, password }).pipe(
       tap((response) => {
-        console.log('Respuesta de login:', response);
         if (response.access && response.refresh) {
           this.setTokens(response.access, response.refresh);
           this.loggedIn.next(true);
@@ -76,7 +75,6 @@ export class AuthService {
 
     getUserData(): any | null {
     const userData = localStorage.getItem('userData');
-    console.log(localStorage.getItem('userData'));
     if (userData) {
       try {
         return JSON.parse(userData);
