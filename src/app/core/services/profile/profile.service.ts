@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../../../interface/IUser';
-import { ICard } from '../../../interface/ICards';
-import { IAddress } from '../../../interface/IAddress';
+import { ICard, ICardCreated } from '../../../interface/ICards';
+import { IAddress, IAddressCreated } from '../../../interface/IAddress';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 
@@ -12,7 +12,9 @@ import { Observable } from 'rxjs';
 export class ProfileService {
   private userUrl = `${environment.apiURL}/api/users/profile/`;
   private cardUrl = `${environment.apiURL}/api/users/cards/`;
+  private cardCreatedUrl = `${environment.apiURL}/api/users/cards/register/`;
   private addressUrl = `${environment.apiURL}/api/users/addresses/`;
+  private addressCreateUrl = `${environment.apiURL}/api/users/addresses/register/`;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -20,11 +22,19 @@ export class ProfileService {
     return this.httpClient.get<IUser>(this.userUrl);
   }
 
-  getCardData(): Observable<ICard> {
-    return this.httpClient.get<ICard>(this.cardUrl);
+  getCardData(): Observable<ICard[]> {
+    return this.httpClient.get<ICard[]>(this.cardUrl);
   }
 
-  getAddresData(): Observable<IAddress> {
-    return this.httpClient.get<IAddress>(this.addressUrl)
+  addCard(card: ICardCreated): Observable<any> {
+    return this.httpClient.post(this.cardCreatedUrl, card)
   }
+
+  getAddresData(): Observable<IAddress[]> {
+    return this.httpClient.get<IAddress[]>(this.addressUrl);
+  }
+
+  addAddress(address: IAddressCreated): Observable<any> {
+  return this.httpClient.post(this.addressCreateUrl, address);
+}
 }

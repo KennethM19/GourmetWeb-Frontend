@@ -1,0 +1,14 @@
+<div class="modal-backdrop" (click)="onClose()"></div>
+<div class="modal-content">
+    <button class="close-btn" (click)="onClose()">×</button>
+    <h3>Nueva Dirección</h3>
+    <form (ngSubmit)="onSubmit()">
+        <input type="text" [(ngModel)]="address.street" name="street" placeholder="Calle" required />
+        <input type="text" [(ngModel)]="address.number" name="number" placeholder="Número" required />
+        <input type="text" [(ngModel)]="address.apartment" name="apartment" placeholder="Departamento" />
+        <input type="text" [(ngModel)]="address.district" name="district" placeholder="Distrito" required />
+        <input type="text" [(ngModel)]="address.city" name="city" placeholder="Ciudad" required />
+        <input type="text" [(ngModel)]="address.zip_code" name="zip_code" placeholder="Código Postal" required />
+        <button type="submit">Agregar</button>
+    </form>
+</div>

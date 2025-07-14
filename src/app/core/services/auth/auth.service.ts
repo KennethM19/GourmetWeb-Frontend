@@ -49,7 +49,7 @@ export class AuthService {
     localStorage.removeItem(this.refreshTokenKey);
     localStorage.removeItem('userData');
     this.loggedIn.next(false);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/dashboard']);
   }
 
   refreshAccessToken(): Observable<any> {

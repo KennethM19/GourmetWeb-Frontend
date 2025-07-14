@@ -1,0 +1,16 @@
+<div class="modal-backdrop" (click)="onClose()"></div>
+<div class="modal-content">
+    <button class="close-btn" (click)="onClose()">×</button>
+    <h3>Nueva Tarjeta</h3>
+    <form (ngSubmit)="onSubmit()">
+        <input type="text" [(ngModel)]="card.number" name="number" placeholder="Número de tarjeta" required />
+        <input type="number" [(ngModel)]="card.exp_month" name="exp_month" placeholder="Mes de expiración" required />
+        <input type="number" [(ngModel)]="card.exp_year" name="exp_year" placeholder="Año de expiración" required />
+        <input type="text" [(ngModel)]="card.owner" name="owner" placeholder="Titular" required />
+        <label>
+            <input type="checkbox" [(ngModel)]="card.is_credit" name="is_credit" />
+            ¿Es tarjeta de crédito?
+        </label>
+        <button type="submit">Agregar</button>
+    </form>
+</div>
