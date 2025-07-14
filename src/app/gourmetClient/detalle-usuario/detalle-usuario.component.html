@@ -1,0 +1,61 @@
+<main class="user-detail-container" [class.collapsed]="isCollapsed$ | async">
+
+    <!-- Sección: Datos Generales -->
+    <section class="user-section">
+        <h2>Información General</h2>
+        <div class="info-pair"><strong>Nombre:</strong> {{ userData?.first_name }} {{ userData?.last_name }}</div>
+        <div class="info-pair"><strong>Email:</strong> {{ userData?.email }}</div>
+        <div class="info-pair"><strong>Teléfono:</strong> {{ userData?.phone }}</div>
+        <div class="info-pair"><strong>DNI:</strong> {{ userData?.doc_number }}</div>
+
+        <div class="action-buttons">
+            <button class="edit-btn">Editar</button>
+            <button class="delete-btn">Eliminar cuenta</button>
+        </div>
+    </section>
+
+    <!-- Sección: Tarjetas de Pago -->
+    <section class="user-section">
+        <div class="section-header">
+            <h2>Tarjetas de Pago</h2>
+            <button (click)="showCardModal = true" class="add-btn">Agregar tarjeta</button>
+        </div>
+        <div *ngIf="cardData.length > 0; else noCards">
+            <div *ngFor="let card of cardData" class="item-card">
+                <p><strong>Terminación:</strong> **** {{ card.last_four_digits }}</p>
+                <p><strong>Vence:</strong> {{ card.expiration }}</p>
+                <p><strong>Titular:</strong> {{ card.owner }}</p>
+                <p><strong>Tipo:</strong> {{ card.is_credit ? 'Crédito' : 'Débito' }}</p>
+                <button class="delete-btn">Eliminar</button>
+            </div>
+        </div>
+        <ng-template #noCards>
+            <p class="empty-state">No hay tarjetas registradas.</p>
+        </ng-template>
+    </section>
+
+    <!-- Sección: Direcciones -->
+    <section class="user-section">
+        <div class="section-header">
+            <h2>Direcciones</h2>
+            <button (click)="showAddressModal = true" class="add-btn">Agregar dirección</button>
+        </div>
+        <div *ngIf="addressData.length > 0; else noAddresses">
+            <div *ngFor="let address of addressData" class="item-card">
+                <p>{{ address.full_address }}</p>
+                <button class="delete-btn">Eliminar</button>
+            </div>
+        </div>
+        <ng-template #noAddresses>
+            <p class="empty-state">No hay direcciones registradas.</p>
+        </ng-template>
+    </section>
+
+    <app-add-cards *ngIf="showCardModal" (close)="showCardModal = false" (submitCard)="handleNewCard($event)">
+    </app-add-cards>
+
+    <app-add-address *ngIf="showAddressModal" (close)="showAddressModal = false"
+        (submitAddress)="handleNewAddress($event)">
+    </app-add-address>
+
+</main>

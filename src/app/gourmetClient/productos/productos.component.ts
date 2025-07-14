@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {SidebarService} from '../../shared/services/sidebar.service';
+import {SidebarService} from '../../core/services/sidebar/sidebar.service';
 import {IImagenProducto, IProducto, ProductoService} from '../../core/services/producto/producto.service';
 import {Router} from '@angular/router';
 import {PedidoService} from '../../core/services/pedido/pedido.service';

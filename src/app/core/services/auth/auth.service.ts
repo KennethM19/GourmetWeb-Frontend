@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://gourmetweb-backend.onrender.com/api/users/token/';
-  private refreshUrl = 'https://gourmetweb-backend.onrender.com/users/token/refresh/';
+  private apiUrl = `${environment.apiURL}/api/users/login/`;
+  private refreshUrl = `${environment.apiURL}/users/token/refresh/`;
   private tokenKey = 'accessToken';
   private refreshTokenKey = 'refreshToken';
   private loggedIn = new BehaviorSubject<boolean>(this.isAuthenticated());
@@ -17,26 +18,13 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     return this.httpClient.post<any>(this.apiUrl, { email, password }).pipe(
-      tap(response => {
+      tap((response) => {
         if (response.access && response.refresh) {
           this.setTokens(response.access, response.refresh);
           this.loggedIn.next(true);
         }
       })
     );
-  }
-
-  private setTokens(accessToken: string, refreshToken: string): void {
-    localStorage.setItem(this.tokenKey, accessToken);
-    localStorage.setItem(this.refreshTokenKey, refreshToken);
-  }
-
-  private getToken(): string | null {
-    return typeof window !== 'undefined' ? localStorage.getItem(this.tokenKey) : null;
-  }
-
-  private getRefreshToken(): string | null {
-    return typeof window !== 'undefined' ? localStorage.getItem(this.refreshTokenKey) : null;
   }
 
   isAuthenticated(): boolean {
@@ -59,8 +47,9 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.refreshTokenKey);
+    localStorage.removeItem('userData');
     this.loggedIn.next(false);
-    this.router.navigate(['/login']); // o donde quieras redirigir
+    this.router.navigate(['/dashboard']);
   }
 
   refreshAccessToken(): Observable<any> {
@@ -71,11 +60,28 @@ export class AuthService {
     }
 
     return this.httpClient.post<any>(this.refreshUrl, { refresh }).pipe(
-      tap(response => {
-        if (response.access) {
+      tap((response) => {
+        if (response.access_token) {
           localStorage.setItem(this.tokenKey, response.access);
         }
       })
     );
+  }
+
+  private setTokens(accessToken: string, refreshToken: string): void {
+    localStorage.setItem(this.tokenKey, accessToken);
+    localStorage.setItem(this.refreshTokenKey, refreshToken);
+  }
+
+  private getToken(): string | null {
+    return typeof window !== 'undefined'
+      ? localStorage.getItem(this.tokenKey)
+      : null;
+  }
+
+  private getRefreshToken(): string | null {
+    return typeof window !== 'undefined'
+      ? localStorage.getItem(this.refreshTokenKey)
+      : null;
   }
 }
