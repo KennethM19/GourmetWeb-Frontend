@@ -3,6 +3,8 @@ import { SidebarService } from '../../core/services/sidebar/sidebar.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ProfileService } from '../../core/services/profile/profile.service';
 import { IUser } from '../../interface/IUser';
+import { ICard } from '../../interface/ICards';
+import { IAddress } from '../../interface/IAddress';
 
 @Component({
   selector: 'app-detalle-usuario',
@@ -16,6 +18,8 @@ export default class DetalleUsuarioComponent implements OnInit {
   isCollapsed$ = this.sidebarService.isCollapsed$;
 
   userData: IUser | null = null;
+  cardData: ICard | null = null;
+  addressData: IAddress | null = null;
 
   constructor(
     private profileService: ProfileService,
@@ -33,6 +37,26 @@ export default class DetalleUsuarioComponent implements OnInit {
           console.error('Error al obtener el perfil:', err);
         }
       });
+
+      this.profileService.getCardData().subscribe({
+        next: (card) => {
+          this.cardData = card;
+          console.log('Tarjeta:', card)
+        },
+        error: (err) => {
+          console.error('Error al conseguir la tarjeta:', err)
+        }
+      })
+
+      this.profileService.getAddresData().subscribe({
+        next: (address) => {
+          this.addressData = address;
+          console.log('Dirección', address)
+        },
+        error: (err) => {
+          console.error('Error al conseguir la dirección:', err)
+        }
+      })
     }
   }
 }
