@@ -10,21 +10,29 @@
       <img src="https://img.icons8.com/emoji/48/000000/hot-pepper.png" alt="Restaurant Icon">
       <h1>Restaurante DGourmetFood</h1>
     </div>
+    <div *ngIf="formLogin.get('username')?.touched && formLogin.get('username')?.invalid" class="text-red-500 text-sm">
+      <small>El usuario es obligatorio.</small>
+    </div>
 
     <h2>Bienvenido, inicia sesión para continuar</h2>
 
-    <form>
+    <form (ngSubmit)="login()" [formGroup]="formLogin" novalidate>
       <!-- Usuario -->
       <label for="username">Usuario</label>
       <div class="input-group">
         <span class="icon">
           <!-- Icono del usuario -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M16 12a4 4 0 10-8 0m8 0a4 4 0 01-8 0m8 0c0 3.866-3.582 7-8 7s-8-3.134-8-7"/>
+              d="M16 12a4 4 0 10-8 0m8 0a4 4 0 01-8 0m8 0c0 3.866-3.582 7-8 7s-8-3.134-8-7" />
           </svg>
         </span>
-        <input type="text" id="username" name="username" placeholder="correo electrónico" autocomplete="off">
+        <input formControlName="email" type="text" id="username" name="username" placeholder="correo electrónico"
+          autocomplete="off">
+      </div>
+      <div *ngIf="formLogin.get('password')?.touched && formLogin.get('password')?.invalid" class="">
+        <small>La contraseña debe tener entre 8 y 20 caracteres.</small>
       </div>
 
       <!-- Contraseña -->
@@ -32,12 +40,14 @@
       <div class="input-group">
         <span class="icon">
           <!-- Icono de contraseña -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 11c2.21 0 4-1.79 4-4S14.21 3 12 3 8 4.79 8 6s1.79 4 4 4zM12 14c-2.21 0-4 1.79-4 4v1h8v-1c0-2.21-1.79-4-4-4z"/>
+              d="M12 11c2.21 0 4-1.79 4-4S14.21 3 12 3 8 4.79 8 6s1.79 4 4 4zM12 14c-2.21 0-4 1.79-4 4v1h8v-1c0-2.21-1.79-4-4-4z" />
           </svg>
         </span>
-        <input type="password" id="password" name="password" placeholder="contraseña" autocomplete="off">
+        <input formControlName="password" type="password" id="password" name="password" placeholder="contraseña"
+          autocomplete="off">
       </div>
 
       <!-- Olvidaste contraseña -->
@@ -46,12 +56,12 @@
       </div>
 
       <!-- Error login -->
-      <div class="error-message">
+      <div class="error-message" *ngIf="loginError">
         Usuario o contraseña incorrectos.
       </div>
 
       <!-- Botón login -->
-      <button type="submit" disabled>Ingresar</button>
+      <button type="submit" [disabled]="formLogin.invalid">Ingresar</button>
     </form>
 
     <!-- Enlace a registro -->

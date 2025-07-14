@@ -1,24 +1,27 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const isBrowser = typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+
   const publicEndpoints = [
     '/api/users/login/',
     '/api/users/register/',
-    '/users/token/refresh/',
+    '/api/users/password/reset/',
   ];
 
-  // Si la URL coincide con alguna pública, no agregar el token
   if (publicEndpoints.some(url => req.url.includes(url))) {
     return next(req);
   }
 
-  const token = localStorage.getItem('accessToken');
+  if (isBrowser) {
+    const token = localStorage.getItem('accessToken');
 
-  if (token) {
-    const cloned = req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${token}`)
-    });
-    return next(cloned);
+    if (token) {
+      const cloned = req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${token}`)
+      });
+      return next(cloned);
+    }
   }
 
   return next(req);

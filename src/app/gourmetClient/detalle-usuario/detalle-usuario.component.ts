@@ -1,7 +1,8 @@
-import {Component, inject, OnInit} from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { SidebarService } from '../../core/services/sidebar/sidebar.service';
-import { CommonModule } from '@angular/common';
-
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ProfileService } from '../../core/services/profile/profile.service';
+import { IUser } from '../../interface/IUser';
 
 @Component({
   selector: 'app-detalle-usuario',
@@ -10,7 +11,28 @@ import { CommonModule } from '@angular/common';
   templateUrl: './detalle-usuario.component.html',
   styleUrl: './detalle-usuario.component.css',
 })
-export default class DetalleUsuarioComponent {
+export default class DetalleUsuarioComponent implements OnInit {
   private sidebarService = inject(SidebarService);
   isCollapsed$ = this.sidebarService.isCollapsed$;
+
+  userData: IUser | null = null;
+
+  constructor(
+    private profileService: ProfileService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.profileService.getUserProfile().subscribe({
+        next: (user) => {
+          this.userData = user;
+          console.log('Perfil:', user);
+        },
+        error: (err) => {
+          console.error('Error al obtener el perfil:', err);
+        }
+      });
+    }
+  }
 }

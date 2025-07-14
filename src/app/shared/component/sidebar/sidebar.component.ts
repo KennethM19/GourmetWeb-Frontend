@@ -5,6 +5,8 @@ import {SidebarService} from '../../../core/services/sidebar/sidebar.service';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {faBars, faChair, faClipboardList, faSignOutAlt, faTimes, faUser} from '@fortawesome/free-solid-svg-icons';
 import {AuthService} from '../../../core/services/auth/auth.service';
+import { ProfileService } from '../../../core/services/profile/profile.service';
+import { IUser } from '../../../interface/IUser';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,12 +19,11 @@ export class SidebarComponent implements OnInit {
   private sidebarService = inject(SidebarService);
   isCollapsed$ = this.sidebarService.isCollapsed$;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private profileService: ProfileService) {
   }
 
   isLoggedIn: boolean = false;
-
-
+  userData: IUser | null = null;
   userName: string = '';
   avatarUrl: string = 'https://api.dicebear.com/7.x/avataaars/svg';
   menuItems = [
@@ -37,8 +38,12 @@ export class SidebarComponent implements OnInit {
       this.isLoggedIn = loggedIn;
 
       if(loggedIn) {
-        const userData = this.authService.getUserData();
-        this.userName = userData?.first_name || 'Usuario';
+        this.profileService.getUserProfile().subscribe({
+          next:(user) => {
+            this.userData = user;
+            this.userName = this.userData.first_name
+          }
+        })
       }
     })
   }
