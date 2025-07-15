@@ -103,4 +103,28 @@ export default class DetalleUsuarioComponent implements OnInit {
       },
     });
   }
+
+  deleteCard(cardId: number) {
+    this.profileService.deleteCard(cardId).subscribe({
+      next:() => {
+        console.log('Dirección eliminada');
+        this.loadCards();
+      },
+      error: err => {
+        console.error('Error al eliminar', err)
+      }
+    })
+  }
+
+  deleteAddress(addressId: number) {
+    this.profileService.deleteAddress(addressId).subscribe({
+      next:() => {
+        console.log('Dirección eliminada');
+        this.loadAddresses()
+      },
+      error: err => {
+        console.error('Error al eliminar', err)
+      }
+    })
+  }
 }

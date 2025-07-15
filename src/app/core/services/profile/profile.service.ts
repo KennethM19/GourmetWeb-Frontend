@@ -27,7 +27,12 @@ export class ProfileService {
   }
 
   addCard(card: ICardCreated): Observable<any> {
-    return this.httpClient.post(this.cardCreatedUrl, card)
+    return this.httpClient.post(this.cardCreatedUrl, card);
+  }
+
+  deleteCard(cardId: number): Observable<any> {
+    const url = `${environment.apiURL}/api/users/cards/${cardId}/delete/`;
+    return this.httpClient.delete(url);
   }
 
   getAddresData(): Observable<IAddress[]> {
@@ -35,6 +40,11 @@ export class ProfileService {
   }
 
   addAddress(address: IAddressCreated): Observable<any> {
-  return this.httpClient.post(this.addressCreateUrl, address);
-}
+    return this.httpClient.post(this.addressCreateUrl, address);
+  }
+
+  deleteAddress(addressId: number): Observable<any> {
+    const url = `${environment.apiURL}/api/users/addresses/${addressId}/delete/`;
+    return this.httpClient.delete(url);
+  }
 }
