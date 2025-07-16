@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ICardCreated } from '../../../interface/ICards';
 
 @Component({
@@ -8,23 +8,28 @@ import { ICardCreated } from '../../../interface/ICards';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './add-cards.component.html',
-  styleUrl: './add-cards.component.css'
+  styleUrl: './add-cards.component.css',
 })
 export class AddCardsComponent {
- @Output() close = new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>();
   @Output() submitCard = new EventEmitter<ICardCreated>();
+  currentYear = new Date().getFullYear();
 
   card: ICardCreated = {
     number: '',
     exp_month: 0,
     exp_year: 0,
     owner: '',
-    is_credit: false
+    is_credit: false,
   };
 
-  onSubmit() {
-    this.submitCard.emit(this.card);
-    this.close.emit();
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      this.submitCard.emit(this.card);
+      this.close.emit();
+    } else {
+      form.control.markAllAsTouched();
+    }
   }
 
   onClose() {

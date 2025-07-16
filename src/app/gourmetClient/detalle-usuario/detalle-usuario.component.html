@@ -26,7 +26,7 @@
                 <p><strong>Vence:</strong> {{ card.expiration }}</p>
                 <p><strong>Titular:</strong> {{ card.owner }}</p>
                 <p><strong>Tipo:</strong> {{ card.is_credit ? 'Crédito' : 'Débito' }}</p>
-                <button class="delete-btn">Eliminar</button>
+                <button class="delete-btn" (click)="deleteCard(card.id)">Eliminar</button>
             </div>
         </div>
         <ng-template #noCards>
@@ -43,7 +43,7 @@
         <div *ngIf="addressData.length > 0; else noAddresses">
             <div *ngFor="let address of addressData" class="item-card">
                 <p>{{ address.full_address }}</p>
-                <button class="delete-btn">Eliminar</button>
+                <button class="delete-btn" (click)="deleteAddress(address.id)">Eliminar</button>
             </div>
         </div>
         <ng-template #noAddresses>
