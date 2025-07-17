@@ -1,5 +1,5 @@
 import { IOrderItem } from "./IOrdenItem";
 
-export interface IOrderCreate {
+export interface IOrder {
   items: IOrderItem[];
 }

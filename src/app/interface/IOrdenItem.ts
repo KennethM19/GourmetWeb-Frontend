@@ -1,4 +1,4 @@
 export interface IOrderItem {
-  product_id: number;
+  product: number;
   quantity: number;
 }

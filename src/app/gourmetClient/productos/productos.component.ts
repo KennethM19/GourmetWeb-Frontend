@@ -6,6 +6,7 @@ import { ProductoService } from '../../core/services/producto/producto.service';
 import { IProduct } from '../../interface/IProduct';
 import { Router } from '@angular/router';
 import { PedidoService } from '../../core/services/pedido/pedido.service';
+import { IOrder } from '../../interface/IOrder';
 
 export interface IResumenPedido extends IProduct {
   cant_select: number;
@@ -99,7 +100,6 @@ export default class PedidosComponent implements OnInit {
       } else {
         productoEnResumen.cant_select += cantidad;
       }
-      console.log('cantidad: ', cantidad);
       this.cantidadesSeleccionadas[producto.id] = 0;
     }
   }
@@ -125,24 +125,30 @@ export default class PedidosComponent implements OnInit {
     this.router.navigate(['/dashboard']);
   }
 
-  confirmarPedido(): void {
-    // setTimeout(() => {
-    //   const pedidoExitoso = this.pedidoService.iniciarNuevoPedido(
-    //     this.resumenPedidos
-    //   );
+confirmarPedido(): void {
+  const pedido: IOrder = {
+    items: this.resumenPedidos.map(producto => ({
+      product: producto.id,
+      quantity: producto.cant_select
+    }))
+  };
 
-    //   if (pedidoExitoso) {
-    //     alert('Pago realizado');
-    //     this.router.navigate(['/detalle-pedido']);
-    //   } else {
-    //     alert('Ya tienes un pedido en proceso. Espera a que se complete.');
-    //   }
-    // }, 2000);
-  }
+  this.pedidoService.crearPedido(pedido).subscribe({
+    next: res => {
+      console.log('Pedido creado:', res);
+      this.resumenPedidos = [];
+      alert('¡Pedido confirmado!');
+    },
+    error: err => {
+      console.error('Error al crear pedido:', err);
+      alert('Ocurrió un error al confirmar el pedido.');
+    }
+  });
+}
 
   getImagenProducto(producto: IProduct): string {
     if (!producto.image) {
-      return 'assets/default-image.jpg'
+      return 'assets/default-image.jpg';
     } else {
       return this.productoService.getImagenProductoCompleta(producto.image);
     }

@@ -1,7 +1,7 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SidebarService} from '../../core/services/sidebar/sidebar.service';
-import {HistorialPedido, Pedido, PedidoService} from '../../core/services/pedido/pedido.service';
+import { PedidoService} from '../../core/services/pedido/pedido.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -16,8 +16,7 @@ export default class DetallePedidoComponent implements OnInit, OnDestroy {
   isCollapsed$ = this.sidebarService.isCollapsed$;
   private intervalId: any;
 
-  pedidoActual: Pedido | null = null;
-  historialPedidos: HistorialPedido[] = [];
+
 
   platoFrecuente = {
     nombre: 'Volcan de Chocolate',
@@ -25,7 +24,7 @@ export default class DetallePedidoComponent implements OnInit, OnDestroy {
   };
 
   mostrarModal = false;
-  pedidoSeleccionado: HistorialPedido | null = null;
+
 
   constructor(
     private pedidoService: PedidoService,
@@ -34,31 +33,21 @@ export default class DetallePedidoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.pedidoService.pedidoActual$.subscribe(pedido => {
-      this.pedidoActual = pedido;
-    });
 
-    this.pedidoService.historialPedidos$.subscribe(historial => {
-      this.historialPedidos = historial;
-    });
   }
 
   cancelarPedido(): void {
     const motivo = prompt('Ingrese el motivo de cancelación y su correo electrónico:');
     if (motivo) {
-      this.pedidoService.cancelarPedido();
-      alert('Se recibió el motivo, se estará validando el pedido y se le reembolsará la compra. Le llegará una verificación por email.');
+
     }
   }
 
-  verDetallesPedido(pedido: HistorialPedido): void {
-    this.pedidoSeleccionado = pedido;
-    this.mostrarModal = true;
-  }
+
 
   cerrarModal(): void {
     this.mostrarModal = false;
-    this.pedidoSeleccionado = null;
+
   }
 
   ngOnDestroy(): void {
