@@ -7,39 +7,33 @@
   <main class="main-content">
     <div class="menu-section">
       <nav class="categories">
-        <button
-          class="category-btn"
-          [class.active]="categoriaSeleccionada === ''"
-          (click)="borrarfiltro()">
+        <button class="category-btn" [class.active]="categoriaSeleccionada === ''" (click)="borrarfiltro()">
           Todos
         </button>
-        <button
-          *ngFor="let categoria of categorias"
-          class="category-btn"
-          [class.active]="categoria.id === categoriaSeleccionada"
-          (click)="cambiarCategoria(categoria.id)"
-        >
+        <button *ngFor="let categoria of categorias" class="category-btn"
+          [class.active]="categoria.id === categoriaSeleccionada" (click)="cambiarCategoria(categoria.id)">
           {{ categoria.nombre }}
         </button>
       </nav>
       <section class="products-grid">
         <div class="product-card" *ngFor="let producto of productosFiltrados">
-          <img [src]="getImagenProducto(producto.id)" alt="{{producto.nombre}}">
+          <img [src]="getImagenProducto(producto)" alt="{{producto.name}}">
           <div class="product-info">
-            <div>{{ producto.nombre }}</div>
-            <div>{{ producto.descripcion }}</div>
-            <div><strong>Precio:</strong> S/ {{ producto.precio }}</div>
+            <div>{{ producto.name }}</div>
+            <div>{{ producto.description }}</div>
+            <div><strong>Precio:</strong> S/ {{ producto.price }}</div>
           </div>
           <div class="quantity-controls">
             <button class="qty-btn" (click)="disminuirProducto(producto)"
-                    [disabled]="producto.cantidad_selecionada <= 0">-
+              [disabled]="cantidadesSeleccionadas[producto.id] <= 0">-
             </button>
-            <span>{{ producto.cantidad_selecionada }}</span>
+            <span>{{ cantidadesSeleccionadas[producto.id] }}</span>
             <button class="qty-btn" (click)="incrementarProducto(producto)"
-                    [disabled]="producto.cantidad_selecionada >= producto.cantidad_disponible">+
+              [disabled]="cantidadesSeleccionadas[producto.id] >= producto.cant_available">+
             </button>
           </div>
-          <button class="add-btn" (click)="agregarProducto(producto)" [disabled]="producto.cantidad_selecionada === 0">
+          <button class="add-btn" (click)="agregarProducto(producto)"
+            [disabled]="cantidadesSeleccionadas[producto.id] === 0">
             Agregar
           </button>
         </div>
@@ -49,59 +43,18 @@
     <aside class="order-summary">
       <h2><strong>Resumen del Pedido</strong></h2>
       <div *ngFor="let producto of resumenPedidos" class="order-item">
-        <span>{{ producto.nombre }}</span>
-        <span>Cantidad: {{ producto.cantidad_selecionada }}</span>
-        <span>Total: {{ producto.cantidad_selecionada * producto.precio | currency:'S/' }}</span>
+        <span>{{ producto.name }}</span>
+        <span>Cantidad: {{ producto.cant_select }}</span>
+        <span>Total: {{ producto.cant_select * producto.price | currency:'S/' }}</span>
         <button (click)="quitarProducto(producto)">Quitar</button>
       </div>
 
       <div *ngIf="resumenPedidos.length === 0">
         <p>No hay productos en el resumen.</p>
       </div>
-
-      <div class="promo-box">
-        <h3>Promociones Disponibles</h3>
-        @for (promo of promociones; track promo.codigo) {
-          @if (promo.activa) {
-            <div class="promo-item">
-              <p>{{ promo.descripcion }}</p>
-              <small>Usa el código: {{ promo.codigo }}</small>
-            </div>
-          }
-        }
-
-        <div class="promo-input">
-          <input
-            type="text"
-            [(ngModel)]="codigoPromocion"
-            placeholder="Ingresa código promocional"
-          >
-          <button
-            class="apply-promo-btn"
-            (click)="aplicarPromocion()"
-          >
-            Aplicar
-          </button>
-        </div>
-      </div>
-
-      <div class="total-breakdown">
-        <div class="subtotal">
-          <span>Subtotal:</span>
-          <span>S/{{ calcularSubtotal().toFixed(2) }}</span>
-        </div>
-
-        @if (promocionAplicada) {
-          <div class="discount">
-            <span>Descuento ({{ promocionAplicada.descuento }}%):</span>
-            <span>-S/{{ calcularDescuento().toFixed(2) }}</span>
-          </div>
-        }
-
-        <div class="total">
-          <span>Total:</span>
-          <span>S/{{ calcularTotal().toFixed(2) }}</span>
-        </div>
+      <div class="total">
+        <span>Total:</span>
+        <span>S/{{ calcularTotal().toFixed(2) }}</span>
       </div>
 
       <div class="notes">

@@ -1,17 +1,14 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {SidebarService} from '../../core/services/sidebar/sidebar.service';
-import {IImagenProducto, IProducto, ProductoService} from '../../core/services/producto/producto.service';
-import {Router} from '@angular/router';
-import {PedidoService} from '../../core/services/pedido/pedido.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { SidebarService } from '../../core/services/sidebar/sidebar.service';
+import { ProductoService } from '../../core/services/producto/producto.service';
+import { IProduct } from '../../interface/IProduct';
+import { Router } from '@angular/router';
+import { PedidoService } from '../../core/services/pedido/pedido.service';
 
-interface IPromocion {
-  codigo: string;
-  descripcion: string;
-  descuento: number;
-  minimoCompra?: number;
-  activa: boolean;
+export interface IResumenPedido extends IProduct {
+  cant_select: number;
 }
 
 @Component({
@@ -19,142 +16,109 @@ interface IPromocion {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './productos.component.html',
-  styleUrl: './productos.component.css'
+  styleUrl: './productos.component.css',
 })
 export default class PedidosComponent implements OnInit {
-  productos: IProducto[] = [];
+  cantidadesSeleccionadas: { [productoId: number]: number } = {};
+  cant_selected: number = 0;
+  productos: IProduct[] = [];
   imagenesProductos: { [key: number]: string } = {};
-  resumenPedidos: IProducto[] = [];
+  resumenPedidos: IResumenPedido[] = [];
   private sidebarService = inject(SidebarService);
   categorias = [
-    {id: '1', nombre: 'Platos Principales'},
-    {id: '2', nombre: 'Bebidas'},
-    {id: '3', nombre: 'Entradas'},
-    {id: '4', nombre: 'Postre'},
+    { id: '1', nombre: 'Entradas' },
+    { id: '2', nombre: 'Platos principales' },
+    { id: '3', nombre: 'Postres' },
+    { id: '4', nombre: 'Bebidas' },
   ];
   categoriaSeleccionada: string = '';
   isCollapsed$ = this.sidebarService.isCollapsed$;
 
-  promociones: IPromocion[] = [
-    {
-      codigo: 'PROMO20',
-      descripcion: '20% de descuento en tu primer pedido',
-      descuento: 20,
-      minimoCompra: 50,
-      activa: true
-    },
-    {
-      codigo: 'HAPPY2025',
-      descripcion: '15% en pedidos superiores a S/100',
-      descuento: 15,
-      minimoCompra: 100,
-      activa: true
-    }
-  ];
-
-  promocionAplicada: IPromocion | null = null;
   codigoPromocion: string = '';
 
   constructor(
     private productoService: ProductoService,
     private router: Router,
     private pedidoService: PedidoService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.productoService.getProducts().subscribe((data) => {
-      this.productos = data.map(producto => ({
+      this.productos = data.map((producto) => ({
         ...producto,
         cantidad_selecionada: 0,
       }));
 
-      this.productos.forEach(producto => {
-        this.cargarImagen(producto.id, '1');
-      })
+      this.productos.forEach((producto) => {
+        this.cantidadesSeleccionadas[producto.id] = 0;
+      });
     });
   }
 
-  get productosFiltrados(): IProducto[] {
-      if (!this.categoriaSeleccionada || this.categoriaSeleccionada === '') {
-    return this.productos;
+  getNombreCategoria(id: number): string {
+    const categoria = this.categorias.find((cat) => Number(cat.id) === id);
+    return categoria ? categoria.nombre : 'Sin categoría';
   }
-    return this.productos.filter(producto => producto.tipo == this.categoriaSeleccionada);
+
+  get productosFiltrados(): IProduct[] {
+    if (!this.categoriaSeleccionada || this.categoriaSeleccionada === '') {
+      return this.productos;
+    }
+    return this.productos.filter(
+      (producto) =>
+        producto.productType.id == Number(this.categoriaSeleccionada)
+    );
   }
 
   cambiarCategoria(categoria: string): void {
     this.categoriaSeleccionada = categoria;
-    console.log(this.categoriaSeleccionada);
   }
 
-  incrementarProducto(producto: IProducto): void {
-    if (producto.cantidad_selecionada < producto.cantidad_disponible) {
-      producto.cantidad_selecionada++;
+  incrementarProducto(producto: IProduct): void {
+    if (this.cantidadesSeleccionadas[producto.id] < producto.cant_available) {
+      this.cantidadesSeleccionadas[producto.id]++;
     }
   }
 
-  disminuirProducto(producto: IProducto): void {
-    if (producto.cantidad_selecionada > 0) {
-      producto.cantidad_selecionada--;
+  disminuirProducto(producto: IProduct): void {
+    if (this.cantidadesSeleccionadas[producto.id] > 0) {
+      this.cantidadesSeleccionadas[producto.id]--;
     }
   }
 
-  agregarProducto(producto: IProducto): void {
-    if (producto.cantidad_selecionada < producto.cantidad_disponible) {
-      const productoEnResumen = this.resumenPedidos.find(p => p.id === producto.id);
+  agregarProducto(producto: IProduct): void {
+    const cantidad = this.cantidadesSeleccionadas[producto.id];
+
+    if (cantidad > 0) {
+      const productoEnResumen = this.resumenPedidos.find(
+        (p) => p.id === producto.id
+      );
 
       if (!productoEnResumen) {
-        this.resumenPedidos.push({
-          ...producto,
-          cantidad_selecionada: producto.cantidad_selecionada,
-        });
+        this.resumenPedidos.push({ ...producto, cant_select: cantidad });
       } else {
-        productoEnResumen.cantidad_selecionada += producto.cantidad_selecionada;
+        productoEnResumen.cant_select += cantidad;
       }
-      producto.cantidad_selecionada = 0;
+      console.log('cantidad: ', cantidad);
+      this.cantidadesSeleccionadas[producto.id] = 0;
     }
   }
 
-  quitarProducto(producto: IProducto): void {
-    if (producto.cantidad_selecionada > 0) {
-      producto.cantidad_selecionada--;
-      if (producto.cantidad_selecionada === 0) {
-        this.resumenPedidos = this.resumenPedidos.filter(p => p.id !== producto.id)
+  quitarProducto(producto: IProduct): void {
+    if (this.cant_selected > 0) {
+      this.cant_selected--;
+      if (this.cant_selected === 0) {
+        this.resumenPedidos = this.resumenPedidos.filter(
+          (p) => p.id !== producto.id
+        );
       }
     }
   }
-
-  aplicarPromocion(): void {
-    const promocion = this.promociones.find(
-      p => p.codigo === this.codigoPromocion.toUpperCase() && p.activa
-    );
-
-    if (promocion) {
-      const subtotal = this.calcularSubtotal();
-      if (subtotal >= (promocion.minimoCompra || 0)) {
-        this.promocionAplicada = promocion;
-      } else {
-        alert(`El pedido mínimo para esta promoción es S/${promocion.minimoCompra}`);
-      }
-    } else {
-      alert('Código de promoción inválido o expirado');
-    }
-  }
-
-  calcularSubtotal(): number {
+  calcularTotal(): number {
     return this.resumenPedidos.reduce(
-      (total, producto) => total + (producto.cantidad_selecionada * producto.precio),
+      (total, producto) => total + this.cant_selected * producto.price,
       0
     );
-  }
-
-  calcularDescuento(): number {
-    if (!this.promocionAplicada) return 0;
-    return (this.calcularSubtotal() * this.promocionAplicada.descuento) / 100;
-  }
-
-  calcularTotal(): number {
-    return this.calcularSubtotal() - this.calcularDescuento();
   }
 
   volverDashboard() {
@@ -162,35 +126,29 @@ export default class PedidosComponent implements OnInit {
   }
 
   confirmarPedido(): void {
-    setTimeout(() => {
-      const pedidoExitoso = this.pedidoService.iniciarNuevoPedido(this.resumenPedidos);
+    // setTimeout(() => {
+    //   const pedidoExitoso = this.pedidoService.iniciarNuevoPedido(
+    //     this.resumenPedidos
+    //   );
 
-      if (pedidoExitoso) {
-        alert('Pago realizado');
-        this.router.navigate(['/detalle-pedido']);
-      } else {
-        alert('Ya tienes un pedido en proceso. Espera a que se complete.');
-      }
-    }, 2000);
+    //   if (pedidoExitoso) {
+    //     alert('Pago realizado');
+    //     this.router.navigate(['/detalle-pedido']);
+    //   } else {
+    //     alert('Ya tienes un pedido en proceso. Espera a que se complete.');
+    //   }
+    // }, 2000);
   }
 
-  cargarImagen(productoId: number, productoTipo: string): void {
-    const apiImagen = `https://server.rest.devmb.top/admin-res/api/v1/archivo/producto/${productoId}/${productoTipo}`;
-    this.productoService.getImage(apiImagen).subscribe((data: IImagenProducto[]) => {
-      if (data && data.length > 0) {
-        this.imagenesProductos[productoId] = 'https://server.rest.devmb.top/' + data[0].ruta_parcial;
-      } else {
-        this.imagenesProductos[productoId] = 'assets/default-image.jpg';
-      }
-    });
-  }
-
-  getImagenProducto(productoId: number): string {
-    return this.imagenesProductos[productoId] || 'assets/default-image.jpg';
+  getImagenProducto(producto: IProduct): string {
+    if (!producto.image) {
+      return 'assets/default-image.jpg'
+    } else {
+      return this.productoService.getImagenProductoCompleta(producto.image);
+    }
   }
 
   borrarfiltro() {
     this.categoriaSeleccionada = '';
-    console.log(this.categoriaSeleccionada);
   }
 }
