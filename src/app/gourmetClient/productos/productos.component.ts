@@ -1,12 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser  } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SidebarService } from '../../core/services/sidebar/sidebar.service';
 import { ProductoService } from '../../core/services/producto/producto.service';
 import { IProduct } from '../../interface/IProduct';
 import { Router } from '@angular/router';
 import { PedidoService } from '../../core/services/pedido/pedido.service';
-import { IOrder, IOrderCreated } from '../../interface/IOrder';
+import { IOrderCreated } from '../../interface/IOrder';
 
 export interface IResumenPedido extends IProduct {
   cant_select: number;
@@ -38,12 +38,14 @@ export default class PedidosComponent implements OnInit {
   codigoPromocion: string = '';
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     private productoService: ProductoService,
     private router: Router,
     private pedidoService: PedidoService
   ) {}
 
-  ngOnInit(): void {
+ngOnInit(): void {
+  if (isPlatformBrowser(this.platformId)) {
     this.productoService.getProducts().subscribe((data) => {
       this.productos = data.map((producto) => ({
         ...producto,
@@ -55,6 +57,7 @@ export default class PedidosComponent implements OnInit {
       });
     });
   }
+}
 
   getNombreCategoria(id: number): string {
     const categoria = this.categorias.find((cat) => Number(cat.id) === id);
