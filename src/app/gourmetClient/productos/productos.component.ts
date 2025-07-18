@@ -6,7 +6,7 @@ import { ProductoService } from '../../core/services/producto/producto.service';
 import { IProduct } from '../../interface/IProduct';
 import { Router } from '@angular/router';
 import { PedidoService } from '../../core/services/pedido/pedido.service';
-import { IOrder } from '../../interface/IOrder';
+import { IOrder, IOrderCreated } from '../../interface/IOrder';
 
 export interface IResumenPedido extends IProduct {
   cant_select: number;
@@ -126,7 +126,7 @@ export default class PedidosComponent implements OnInit {
   }
 
 confirmarPedido(): void {
-  const pedido: IOrder = {
+  const pedido: IOrderCreated = {
     items: this.resumenPedidos.map(producto => ({
       product: producto.id,
       quantity: producto.cant_select
@@ -138,6 +138,7 @@ confirmarPedido(): void {
       console.log('Pedido creado:', res);
       this.resumenPedidos = [];
       alert('¡Pedido confirmado!');
+      this.router.navigate(['/dashboard']);
     },
     error: err => {
       console.error('Error al crear pedido:', err);

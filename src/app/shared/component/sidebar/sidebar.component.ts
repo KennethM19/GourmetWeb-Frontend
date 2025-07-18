@@ -9,6 +9,7 @@ import {
   faClipboardList,
   faSignOutAlt,
   faTimes,
+  faTruck,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../../core/services/auth/auth.service';
@@ -38,6 +39,7 @@ export class SidebarComponent implements OnInit {
   menuItems = [
     { icon: faUser, label: 'Detalles de perfil', route: '/profile' },
     { icon: faClipboardList, label: 'Productos', route: '/productos' },
+    { icon: faTruck, label: 'Pedidos', route: '/pedido' },
     { icon: faChair, label: 'Reservaciones', route: '/reservar-mesa' },
     { icon: faSignOutAlt, label: 'Cerrar sesión', route: '/logout' },
   ];

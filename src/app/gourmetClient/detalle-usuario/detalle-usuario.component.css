@@ -5,12 +5,33 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
+/* Encabezado */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+/* Botones */
+.btn-volver {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+.btn-volver {
+  background-color: #b44;
+}
+
 .user-section {
   background-color: #f9f9f9;
   padding: 1.5rem;
   margin-bottom: 2rem;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .user-section h2 {
