@@ -10,6 +10,7 @@ import { ICardCreated } from '../../interface/ICards';
 import { FormsModule } from '@angular/forms';
 import { AddCardsComponent } from '../modals/add-cards/add-cards.component';
 import { AddAddressComponent } from '../modals/add-address/add-address.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalle-usuario',
@@ -31,7 +32,8 @@ export default class DetalleUsuarioComponent implements OnInit {
 
   constructor(
     private profileService: ProfileService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +49,6 @@ export default class DetalleUsuarioComponent implements OnInit {
     this.profileService.getUserProfile().subscribe({
       next: (user) => {
         this.userData = user;
-        console.log('Perfil:', user);
       },
       error: (err) => {
         console.error('Error al obtener el perfil:', err);
@@ -59,7 +60,6 @@ export default class DetalleUsuarioComponent implements OnInit {
     this.profileService.getCardData().subscribe({
       next: (cards) => {
         this.cardData = cards;
-        console.log('Tarjeta:', cards);
       },
       error: (err) => {
         console.error('Error al conseguir la tarjeta:', err);
@@ -71,7 +71,6 @@ export default class DetalleUsuarioComponent implements OnInit {
     this.profileService.getAddresData().subscribe({
       next: (addresses) => {
         this.addressData = addresses;
-        console.log('Dirección', addresses);
       },
       error: (err) => {
         console.error('Error al conseguir la dirección:', err);
@@ -106,25 +105,27 @@ export default class DetalleUsuarioComponent implements OnInit {
 
   deleteCard(cardId: number) {
     this.profileService.deleteCard(cardId).subscribe({
-      next:() => {
-        console.log('Dirección eliminada');
+      next: () => {
         this.loadCards();
       },
-      error: err => {
-        console.error('Error al eliminar', err)
-      }
-    })
+      error: (err) => {
+        console.error('Error al eliminar', err);
+      },
+    });
   }
 
   deleteAddress(addressId: number) {
     this.profileService.deleteAddress(addressId).subscribe({
-      next:() => {
-        console.log('Dirección eliminada');
-        this.loadAddresses()
+      next: () => {
+        this.loadAddresses();
       },
-      error: err => {
-        console.error('Error al eliminar', err)
-      }
-    })
+      error: (err) => {
+        console.error('Error al eliminar', err);
+      },
+    });
+  }
+
+  volverDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 }

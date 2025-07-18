@@ -1,0 +1,32 @@
+<div class="historial-order-detail-container" [class.collapsed]="isCollapsed$ | async">
+  <header class="header">
+    <button class="btn-volver" (click)="volverDashboard()" aria-label="Volver al dashboard">Volver</button>
+  </header>
+
+  <main class="orders-container">
+    <section *ngIf="orderData.length > 0; else noOrders">
+      <h2 class="section-title">Historial de órdenes</h2>
+
+      <ul class="order-list">
+        <li class="order-card" *ngFor="let order of orderData">
+          <div class="order-info">
+            <strong>Fecha:</strong>
+            <time class="order-value">{{ order.date_created }}</time>
+          </div>
+          <div class="order-info">
+            <strong>Total:</strong>
+            <span class="order-value">S/ {{ order.total_price }}</span>
+          </div>
+          <div class="order-info">
+            <strong>Estado:</strong>
+            <span class="order-value">{{ order.status }}</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <ng-template #noOrders>
+      <p class="empty-state">No hay órdenes registradas.</p>
+    </ng-template>
+  </main>
+</div>

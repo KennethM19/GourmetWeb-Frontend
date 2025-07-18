@@ -7,6 +7,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     '/api/users/login/',
     '/api/users/register/',
     '/api/users/password/reset/',
+    '/api/order/products/'
   ];
 
   if (publicEndpoints.some(url => req.url.includes(url))) {

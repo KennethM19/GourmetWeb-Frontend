@@ -1,17 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-
-export interface IProducto {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  precio: number,
-  tipo: string;
-  disponible: boolean;
-  cantidad_disponible: number;
-  cantidad_selecionada: number;
-}
+import { IProduct } from '../../../interface/IProduct';
+import { environment } from '../../../../environments/environment';
 
 export interface IImagenProducto {
   nombre: string;
@@ -23,16 +14,16 @@ export interface IImagenProducto {
   providedIn: 'root'
 })
 export class ProductoService {
-  private apiUrl = 'https://server.rest.devmb.top/admin-res/api/v1/productos/';
+  private productUrl = `${environment.apiURL}/api/order/products/`;
 
   constructor(private http: HttpClient) {
   }
 
-  getProducts(): Observable<IProducto[]> {
-    return this.http.get<IProducto[]>(this.apiUrl);
+  getProducts(): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(this.productUrl);
   }
 
-  getImage(urlImg: string): Observable<IImagenProducto[]> {
-    return this.http.get<IImagenProducto[]>(urlImg);
-  }
+  getImagenProductoCompleta(path: string | null): string {
+  return `${environment.apiURL}${path}`;
+}
 }

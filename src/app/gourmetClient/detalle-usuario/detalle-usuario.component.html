@@ -1,5 +1,7 @@
 <main class="user-detail-container" [class.collapsed]="isCollapsed$ | async">
-
+    <header class="header">
+        <button class="btn-volver" (click)="volverDashboard()">Volver</button>
+    </header>
     <!-- Sección: Datos Generales -->
     <section class="user-section">
         <h2>Información General</h2>

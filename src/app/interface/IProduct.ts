@@ -1,8 +1,14 @@
 export interface IProduct {
   id: number;
-  descripcion: string;
+  description: string;
   name: string;
   price: number;
-  productType_id: number;
-  image: string,
+  image: string | null;
+  available: boolean;
+  cant_available: number;
+  date_created: string;
+  productType: {
+    id: number;
+    type: string;
+  };
 }

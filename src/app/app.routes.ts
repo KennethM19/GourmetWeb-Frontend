@@ -22,9 +22,10 @@ export const routes: Routes = [
           import('./gourmetClient/reservar-mesa/reservar-mesa.component'),
       },
       {
-        path: 'detalle-pedido',
+        path: 'pedido',
+        canActivate: [authGuard],
         loadComponent: () =>
-          import('./gourmetClient/detalle-pedido/detalle-pedido.component'),
+          import('./gourmetClient/pedido/pedido.component'),
       },
       {
         path: 'profile',
