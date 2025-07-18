@@ -1,0 +1,11 @@
+<main class="historial-order-detail-container" [class.collapsed]="isCollapsed$ | async">
+    <div *ngIf="orderData.length > 0; else noOrders">
+        <div *ngFor="let order of orderData">
+            <p>{{order.date_created}}</p>
+        </div>
+        
+    </div>
+    <ng-template #noOrders>
+        <p class="empty-state">No hay tarjetas registradas.</p>
+    </ng-template>
+</main>

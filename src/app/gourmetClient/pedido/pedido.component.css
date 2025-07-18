@@ -1,0 +1,10 @@
+.historial-order-detail-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.historial-order-detail-container.collapsed {
+  margin-left: 70px;
+}
