@@ -18,6 +18,7 @@ export const routes: Routes = [
       },
       {
         path: 'reservar-mesa',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./gourmetClient/reservar-mesa/reservar-mesa.component'),
       },
