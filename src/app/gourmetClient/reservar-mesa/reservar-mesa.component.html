@@ -1,4 +1,7 @@
-<div class="menu-container" [class.collapsed]="isCollapsed$ | async">
+<div class="reservation-container" [class.collapsed]="isCollapsed$ | async">
+  <header class="header">
+    <button class="btn-volver" (click)="volverDashboard()">Volver</button>
+  </header>
   <main class="container">
     <div class="lista">
       <h2>Reservaciones</h2>

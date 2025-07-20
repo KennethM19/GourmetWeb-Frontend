@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarService } from '../../core/services/sidebar/sidebar.service';
 import { ReservationService } from '../../core/services/reservation/reservation.service';
 import { IReservation } from '../../interface/IReservation';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservar-mesa',
@@ -27,14 +28,20 @@ export default class ReservarMesaComponent implements OnInit {
   errorMensaje = '';
   exitoMensaje = '';
 
-  private reservationService = inject(ReservationService);
+  constructor(
+    private reservationService: ReservationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.formReserva = new FormGroup({
       people: new FormControl('', [Validators.required, Validators.min(1)]),
       date: new FormControl('', [Validators.required]),
       time: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [Validators.required, Validators.pattern(/^9\d{8}$/)]),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^9\d{8}$/),
+      ]),
       notes: new FormControl(''),
     });
 
@@ -43,8 +50,8 @@ export default class ReservarMesaComponent implements OnInit {
 
   cargarReservas(): void {
     this.reservationService.getReservation().subscribe({
-      next: (data) => this.reservas = data,
-      error: () => this.errorMensaje = 'Error al cargar reservaciones.'
+      next: (data) => (this.reservas = data),
+      error: () => (this.errorMensaje = 'Error al cargar reservaciones.'),
     });
   }
 
@@ -64,9 +71,14 @@ export default class ReservarMesaComponent implements OnInit {
         this.cargarReservas();
       },
       error: (error) => {
-        this.errorMensaje = error.error?.error || 'No se pudo crear la reservación.';
+        this.errorMensaje =
+          error.error?.error || 'No se pudo crear la reservación.';
         this.exitoMensaje = '';
-      }
+      },
     });
+  }
+
+  volverDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 }

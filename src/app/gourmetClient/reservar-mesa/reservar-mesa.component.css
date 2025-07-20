@@ -1,3 +1,26 @@
+.reservation-container {
+  margin-left: 260px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.reservation-container.collapsed {
+  margin-left: 100px;
+}
+
+.btn-volver {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  max-width: 6rem;
+}
+
+.btn-volver {
+  background-color: #b44;
+}
+
 .container {
   display: flex;
   flex-direction: row;
@@ -41,17 +64,22 @@ textarea {
 }
 
 button {
-  margin-top: 1rem;
-  padding: 0.7rem 1.5rem;
-  background-color: #007bff;
-  color: #fff;
+  width: 100%;
+  padding: 12px;
+  background-color: #ea580c;
+  color: white;
+  font-weight: bold;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
 button:disabled {
-  background-color: #aaa;
+  opacity: 0.5;
+}
+
+button:hover:enabled {
+  background-color: #c2410c;
 }
 
 .error {
