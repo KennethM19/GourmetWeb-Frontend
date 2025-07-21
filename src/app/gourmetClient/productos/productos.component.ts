@@ -20,6 +20,7 @@ export interface IResumenPedido extends IProduct {
   styleUrl: './productos.component.css',
 })
 export default class PedidosComponent implements OnInit {
+  defaultImage = 'https://bing.com/th?id=OSK.93b517d046633ab0bc9976fc4f9addd2';
   cantidadesSeleccionadas: { [productoId: number]: number } = {};
   cant_selected: number = 0;
   productos: IProduct[] = [];
