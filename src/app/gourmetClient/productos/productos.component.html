@@ -17,7 +17,7 @@
       </nav>
       <section class="products-grid">
         <div class="product-card" *ngFor="let producto of productosFiltrados">
-          <img [src]="getImagenProducto(producto) || defaultImage" alt="{{producto.name}}">
+          <img [src]="defaultImage" alt="{{producto.name}}">
           <div class="product-info">
             <div>{{ producto.name }}</div>
             <div>{{ producto.description }}</div>
