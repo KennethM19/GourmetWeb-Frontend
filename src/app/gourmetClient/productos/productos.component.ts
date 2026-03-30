@@ -1,12 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { SidebarService } from '../../core/services/sidebar/sidebar.service';
-import { ProductoService } from '../../core/services/producto/producto.service';
-import { IProduct } from '../../interface/IProduct';
-import { Router } from '@angular/router';
-import { PedidoService } from '../../core/services/pedido/pedido.service';
-import { IOrder, IOrderCreated } from '../../interface/IOrder';
+import {Component, inject, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {SidebarService} from '../../core/services/sidebar/sidebar.service';
+import {ProductoService} from '../../core/services/producto/producto.service';
+import {IProduct} from '../../interface/IProduct';
+import {Router} from '@angular/router';
+import {PedidoService} from '../../core/services/pedido/pedido.service';
+import {IOrderCreated} from '../../interface/IOrder';
 
 export interface IResumenPedido extends IProduct {
   cant_select: number;
@@ -28,10 +28,10 @@ export default class PedidosComponent implements OnInit {
   resumenPedidos: IResumenPedido[] = [];
   private sidebarService = inject(SidebarService);
   categorias = [
-    { id: '1', nombre: 'Entradas' },
-    { id: '2', nombre: 'Platos principales' },
-    { id: '3', nombre: 'Postres' },
-    { id: '4', nombre: 'Bebidas' },
+    {id: '1', nombre: 'Entradas'},
+    {id: '2', nombre: 'Platos principales'},
+    {id: '3', nombre: 'Postres'},
+    {id: '4', nombre: 'Bebidas'},
   ];
   categoriaSeleccionada: string = '';
   isCollapsed$ = this.sidebarService.isCollapsed$;
@@ -42,7 +42,8 @@ export default class PedidosComponent implements OnInit {
     private productoService: ProductoService,
     private router: Router,
     private pedidoService: PedidoService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.productoService.getProducts().subscribe((data) => {
@@ -97,7 +98,7 @@ export default class PedidosComponent implements OnInit {
       );
 
       if (!productoEnResumen) {
-        this.resumenPedidos.push({ ...producto, cant_select: cantidad });
+        this.resumenPedidos.push({...producto, cant_select: cantidad});
       } else {
         productoEnResumen.cant_select += cantidad;
       }
@@ -115,6 +116,7 @@ export default class PedidosComponent implements OnInit {
       }
     }
   }
+
   calcularTotal(): number {
     return this.resumenPedidos.reduce(
       (total, producto) => total + this.cant_selected * producto.price,
@@ -126,27 +128,27 @@ export default class PedidosComponent implements OnInit {
     this.router.navigate(['/dashboard']);
   }
 
-confirmarPedido(): void {
-  const pedido: IOrderCreated = {
-    items: this.resumenPedidos.map(producto => ({
-      product: producto.id,
-      quantity: producto.cant_select
-    }))
-  };
+  confirmarPedido(): void {
+    const pedido: IOrderCreated = {
+      items: this.resumenPedidos.map(producto => ({
+        product: producto.id,
+        quantity: producto.cant_select
+      }))
+    };
 
-  this.pedidoService.crearPedido(pedido).subscribe({
-    next: res => {
-      console.log('Pedido creado:', res);
-      this.resumenPedidos = [];
-      alert('¡Pedido confirmado!');
-      this.router.navigate(['/dashboard']);
-    },
-    error: err => {
-      console.error('Error al crear pedido:', err);
-      alert('Ocurrió un error al confirmar el pedido.');
-    }
-  });
-}
+    this.pedidoService.crearPedido(pedido).subscribe({
+      next: res => {
+        console.log('Pedido creado:', res);
+        this.resumenPedidos = [];
+        alert('¡Pedido confirmado!');
+        this.router.navigate(['/dashboard']);
+      },
+      error: err => {
+        console.error('Error al crear pedido:', err);
+        alert('Ocurrió un error al confirmar el pedido.');
+      }
+    });
+  }
 
   getImagenProducto(producto: IProduct): string {
     if (!producto.image) {

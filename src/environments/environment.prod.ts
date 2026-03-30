@@ -1,4 +1,4 @@
 export const environment = {
-    production : true,
-    apiURL : 'https://gourmetweb-backend.onrender.com',
+  production: true,
+  apiURL: 'https://gourmetweb-backend.onrender.com',
 }

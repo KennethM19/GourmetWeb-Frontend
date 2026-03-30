@@ -11,7 +11,7 @@
           Todos
         </button>
         <button *ngFor="let categoria of categorias" class="category-btn"
-          [class.active]="categoria.id === categoriaSeleccionada" (click)="cambiarCategoria(categoria.id)">
+                [class.active]="categoria.id === categoriaSeleccionada" (click)="cambiarCategoria(categoria.id)">
           {{ categoria.nombre }}
         </button>
       </nav>
@@ -25,15 +25,15 @@
           </div>
           <div class="quantity-controls">
             <button class="qty-btn" (click)="disminuirProducto(producto)"
-              [disabled]="cantidadesSeleccionadas[producto.id] <= 0">-
+                    [disabled]="cantidadesSeleccionadas[producto.id] <= 0">-
             </button>
             <span>{{ cantidadesSeleccionadas[producto.id] }}</span>
             <button class="qty-btn" (click)="incrementarProducto(producto)"
-              [disabled]="cantidadesSeleccionadas[producto.id] >= producto.cant_available">+
+                    [disabled]="cantidadesSeleccionadas[producto.id] >= producto.cant_available">+
             </button>
           </div>
           <button class="add-btn" (click)="agregarProducto(producto)"
-            [disabled]="cantidadesSeleccionadas[producto.id] === 0">
+                  [disabled]="cantidadesSeleccionadas[producto.id] === 0">
             Agregar
           </button>
         </div>

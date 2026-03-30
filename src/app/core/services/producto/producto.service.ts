@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { IProduct } from '../../../interface/IProduct';
-import { environment } from '../../../../environments/environment';
+import {IProduct} from '../../../interface/IProduct';
+import {environment} from '../../../../environments/environment';
 
 export interface IImagenProducto {
   nombre: string;
@@ -24,6 +24,6 @@ export class ProductoService {
   }
 
   getImagenProductoCompleta(path: string | null): string {
-  return `${environment.apiURL}${path}`;
-}
+    return `${environment.apiURL}${path}`;
+  }
 }

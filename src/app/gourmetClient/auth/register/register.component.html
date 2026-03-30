@@ -12,22 +12,28 @@
       <input type="text" id="dni" name="dni" placeholder="Ingresa tu DNI" autocomplete="off" formControlName="dni">
 
       <label for="nombres">Nombre</label>
-      <input type="text" id="nombres" name="nombres" placeholder="Ingresa tu nombre" autocomplete="off" formControlName="nombres">
+      <input type="text" id="nombres" name="nombres" placeholder="Ingresa tu nombre" autocomplete="off"
+             formControlName="nombres">
 
       <label for="apellidos">Apellidos</label>
-      <input type="text" id="apellidos" name="apellidos" placeholder="Ingresa tus apellidos" autocomplete="off" formControlName="apellidos">
+      <input type="text" id="apellidos" name="apellidos" placeholder="Ingresa tus apellidos" autocomplete="off"
+             formControlName="apellidos">
 
       <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="Correo electrónico" autocomplete="off" formControlName="email">
+      <input type="email" id="email" name="email" placeholder="Correo electrónico" autocomplete="off"
+             formControlName="email">
 
       <label for="telefono">Teléfono</label>
-      <input type="tel" id="telefono" name="telefono" placeholder="Número de teléfono" autocomplete="off" formControlName="telefono">
+      <input type="tel" id="telefono" name="telefono" placeholder="Número de teléfono" autocomplete="off"
+             formControlName="telefono">
 
       <label for="password">Contraseña</label>
-      <input type="password" id="password" name="password" placeholder="Crea una contraseña" autocomplete="off" formControlName="password">
+      <input type="password" id="password" name="password" placeholder="Crea una contraseña" autocomplete="off"
+             formControlName="password">
 
       <label for="confirmPassword">Confirmar Contraseña</label>
-      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirma tu contraseña" autocomplete="off" formControlName="confirmPassword">
+      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirma tu contraseña"
+             autocomplete="off" formControlName="confirmPassword">
 
       <button type="submit" [disabled]="formRegister.invalid">Registrarse</button>
     </form>

@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { IUser } from '../../../interface/IUser';
-import { ICard, ICardCreated } from '../../../interface/ICards';
-import { IAddress, IAddressCreated } from '../../../interface/IAddress';
-import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {IUser} from '../../../interface/IUser';
+import {ICard, ICardCreated} from '../../../interface/ICards';
+import {IAddress, IAddressCreated} from '../../../interface/IAddress';
+import {environment} from '../../../../environments/environment';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,8 @@ export class ProfileService {
   private addressUrl = `${environment.apiURL}/api/users/addresses/`;
   private addressCreateUrl = `${environment.apiURL}/api/users/addresses/register/`;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+  }
 
   getUserProfile(): Observable<IUser> {
     return this.httpClient.get<IUser>(this.userUrl);
