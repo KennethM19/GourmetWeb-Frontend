@@ -1,6 +1,6 @@
 <div class="sidebar-container">
   <aside class="sidebar" [class.collapsed]="isCollapsed$ | async" aria-label="Menú lateral">
-    
+
     <header class="sidebar-header">
       <div class="header-content">
         <h1 class="brand-title">
@@ -14,7 +14,7 @@
 
     <section *ngIf="isLoggedIn" class="user-profile">
       <div class="avatar-container">
-        <img [src]="avatarUrl" alt="Avatar de usuario" class="avatar" />
+        <img [src]="avatarUrl" alt="Avatar de usuario" class="avatar"/>
       </div>
       <div class="username-container">
         <span class="username">{{ userName }}</span>
@@ -51,7 +51,7 @@
             </a>
           </li>
         </ng-container>
-        
+
       </ul>
     </nav>
   </aside>

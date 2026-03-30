@@ -43,12 +43,12 @@
 }
 
 .date-exp {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .date-exp input {
-    width: 80px;
+  width: 80px;
 }
 
 .error {

@@ -1,47 +1,47 @@
 <div class="modal-backdrop" (click)="onClose()"></div>
 <div class="modal-content">
-    <button class="close-btn" (click)="onClose()">×</button>
-    <h3>Nueva Tarjeta</h3>
+  <button class="close-btn" (click)="onClose()">×</button>
+  <h3>Nueva Tarjeta</h3>
 
-    <form #cardForm="ngForm" (ngSubmit)="onSubmit(cardForm)">
-        <!-- Número de tarjeta -->
-        <input type="text" [(ngModel)]="card.number" name="number" placeholder="Número de tarjeta" required
-            #number="ngModel" />
-        <div class="error" *ngIf="number.invalid && number.touched">
-            El número de tarjeta es obligatorio.
-        </div>
+  <form #cardForm="ngForm" (ngSubmit)="onSubmit(cardForm)">
+    <!-- Número de tarjeta -->
+    <input type="text" [(ngModel)]="card.number" name="number" placeholder="Número de tarjeta" required
+           #number="ngModel"/>
+    <div class="error" *ngIf="number.invalid && number.touched">
+      El número de tarjeta es obligatorio.
+    </div>
 
-        <!-- Expiración -->
-        <div class="date-exp">
-            <label>Fecha de expiración (Mes/Año):</label>
+    <!-- Expiración -->
+    <div class="date-exp">
+      <label>Fecha de expiración (Mes/Año):</label>
 
-            <input type="number" [(ngModel)]="card.exp_month" name="exp_month" placeholder="Mes" min="1" max="12"
-                required #expMonth="ngModel" />
-            <div class="error" *ngIf="expMonth.invalid && expMonth.touched">
-                El mes es obligatorio.
-            </div>
+      <input type="number" [(ngModel)]="card.exp_month" name="exp_month" placeholder="Mes" min="1" max="12"
+             required #expMonth="ngModel"/>
+      <div class="error" *ngIf="expMonth.invalid && expMonth.touched">
+        El mes es obligatorio.
+      </div>
 
-            <input type="number" [(ngModel)]="card.exp_year" name="exp_year" placeholder="Año" [min]="currentYear"
-                required #expYear="ngModel" />
-            <div class="error" *ngIf="expYear.invalid && expYear.touched">
-                Año inválido.
-            </div>
-        </div>
+      <input type="number" [(ngModel)]="card.exp_year" name="exp_year" placeholder="Año" [min]="currentYear"
+             required #expYear="ngModel"/>
+      <div class="error" *ngIf="expYear.invalid && expYear.touched">
+        Año inválido.
+      </div>
+    </div>
 
-        <!-- Titular -->
-        <input type="text" [(ngModel)]="card.owner" name="owner" placeholder="Titular" required #owner="ngModel" />
-        <div class="error" *ngIf="owner.invalid && owner.touched">
-            El titular es obligatorio.
-        </div>
+    <!-- Titular -->
+    <input type="text" [(ngModel)]="card.owner" name="owner" placeholder="Titular" required #owner="ngModel"/>
+    <div class="error" *ngIf="owner.invalid && owner.touched">
+      El titular es obligatorio.
+    </div>
 
-        <!-- ¿Crédito? -->
-        <label>
-            <input type="checkbox" [(ngModel)]="card.is_credit" name="is_credit" />
-            ¿Es tarjeta de crédito?
-        </label>
+    <!-- ¿Crédito? -->
+    <label>
+      <input type="checkbox" [(ngModel)]="card.is_credit" name="is_credit"/>
+      ¿Es tarjeta de crédito?
+    </label>
 
-        <button type="submit" [disabled]="cardForm.invalid">
-            Agregar
-        </button>
-    </form>
+    <button type="submit" [disabled]="cardForm.invalid">
+      Agregar
+    </button>
+  </form>
 </div>

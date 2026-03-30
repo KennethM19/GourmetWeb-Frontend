@@ -1,16 +1,14 @@
-import { Component, inject, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { SidebarService } from '../../core/services/sidebar/sidebar.service';
-import { ProfileService } from '../../core/services/profile/profile.service';
-import { IUser } from '../../interface/IUser';
-import { ICard } from '../../interface/ICards';
-import { IAddress } from '../../interface/IAddress';
-import { IAddressCreated } from '../../interface/IAddress';
-import { ICardCreated } from '../../interface/ICards';
-import { FormsModule } from '@angular/forms';
-import { AddCardsComponent } from '../modals/add-cards/add-cards.component';
-import { AddAddressComponent } from '../modals/add-address/add-address.component';
-import { Router } from '@angular/router';
+import {Component, inject, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {CommonModule, isPlatformBrowser} from '@angular/common';
+import {SidebarService} from '../../core/services/sidebar/sidebar.service';
+import {ProfileService} from '../../core/services/profile/profile.service';
+import {IUser} from '../../interface/IUser';
+import {ICard, ICardCreated} from '../../interface/ICards';
+import {IAddress, IAddressCreated} from '../../interface/IAddress';
+import {FormsModule} from '@angular/forms';
+import {AddCardsComponent} from '../modals/add-cards/add-cards.component';
+import {AddAddressComponent} from '../modals/add-address/add-address.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-detalle-usuario',
@@ -34,7 +32,8 @@ export default class DetalleUsuarioComponent implements OnInit {
     private profileService: ProfileService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {

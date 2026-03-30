@@ -1,16 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { SidebarService } from '../../core/services/sidebar/sidebar.service';
-import { ReservationService } from '../../core/services/reservation/reservation.service';
-import { IReservation } from '../../interface/IReservation';
-import { Router } from '@angular/router';
+import {Component, inject, OnInit} from '@angular/core';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {SidebarService} from '../../core/services/sidebar/sidebar.service';
+import {ReservationService} from '../../core/services/reservation/reservation.service';
+import {IReservation} from '../../interface/IReservation';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-reservar-mesa',
@@ -31,7 +25,8 @@ export default class ReservarMesaComponent implements OnInit {
   constructor(
     private reservationService: ReservationService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.formReserva = new FormGroup({

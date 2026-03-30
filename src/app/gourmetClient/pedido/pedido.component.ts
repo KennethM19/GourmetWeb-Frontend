@@ -1,16 +1,9 @@
-import {
-  Component,
-  inject,
-  OnDestroy,
-  OnInit,
-  PLATFORM_ID,
-  Inject,
-} from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { SidebarService } from '../../core/services/sidebar/sidebar.service';
-import { PedidoService } from '../../core/services/pedido/pedido.service';
-import { Router } from '@angular/router';
-import { IOrder } from '../../interface/IOrder';
+import {Component, inject, Inject, OnDestroy, OnInit, PLATFORM_ID,} from '@angular/core';
+import {CommonModule, isPlatformBrowser} from '@angular/common';
+import {SidebarService} from '../../core/services/sidebar/sidebar.service';
+import {PedidoService} from '../../core/services/pedido/pedido.service';
+import {Router} from '@angular/router';
+import {IOrder} from '../../interface/IOrder';
 
 @Component({
   selector: 'app-pedido',
@@ -30,7 +23,8 @@ export default class PedidoComponent implements OnInit, OnDestroy {
     private pedidoService: PedidoService,
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {

@@ -1,4 +1,4 @@
-import { IOrderItem } from './IOrdenItem';
+import {IOrderItem} from './IOrdenItem';
 
 export interface IOrderCreated {
   items: IOrderItem[];

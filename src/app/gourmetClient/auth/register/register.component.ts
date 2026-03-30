@@ -3,7 +3,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} f
 import {CommonModule} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import { environment } from '../../../../environments/environment';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-register',

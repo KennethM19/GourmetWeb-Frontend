@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { environment } from '../../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {BehaviorSubject, Observable, tap} from 'rxjs';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +14,11 @@ export class AuthService {
   private refreshTokenKey = 'refreshToken';
   private loggedIn = new BehaviorSubject<boolean>(this.isAuthenticated());
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(private httpClient: HttpClient, private router: Router) {
+  }
 
   login(email: string, password: string): Observable<any> {
-    return this.httpClient.post<any>(this.apiUrl, { email, password }).pipe(
+    return this.httpClient.post<any>(this.apiUrl, {email, password}).pipe(
       tap((response) => {
         if (response.access && response.refresh) {
           this.setTokens(response.access, response.refresh);
@@ -59,7 +60,7 @@ export class AuthService {
       throw new Error('No se encontró el refresh token');
     }
 
-    return this.httpClient.post<any>(this.refreshUrl, { refresh }).pipe(
+    return this.httpClient.post<any>(this.refreshUrl, {refresh}).pipe(
       tap((response) => {
         if (response.access_token) {
           localStorage.setItem(this.tokenKey, response.access);
